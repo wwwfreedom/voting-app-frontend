@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { push } from 'react-router-redux'
-// import { setCurrentUser, authSet } from '../../../redux/session.js'
+import { setCurrentUser, authSet } from 'redux/session.js'
 const ROOT_URL = 'http://localhost:3090'
 // ------------------------------------
 // Constants
@@ -21,22 +21,23 @@ export const loginError = (error) => ({ type: LOGIN_ERROR, payload: error })
 // ------------------------------------
 
 export const emailLogin = ({email, password, rememberMe}) => (dispatch, getState) => {
-  console.log('please works')
   dispatch(loginStart())
   // submit email password to server
   axios.post(`${ROOT_URL}/login`, {
     email, password, rememberMe: JSON.stringify(rememberMe)
   })
   .then((response) => {
-    console.log('after response')
     // save the JWT token to local storage
     localStorage.setItem('token', response.data.token)
-    // dispatch(setCurrentUser(response.data.user))
+    dispatch(setCurrentUser(response.data.user))
+  })
+  .then(() => {
+    dispatch(authSet(true))
     // update state to indicate user is authenticated
     setTimeout(function() {
       dispatch(loginFinish())
       // redirect to the route /feature
-      dispatch(push('/'))
+      dispatch(push('/account'))
     }, 300) // add slight delay for loader to draw for ux
   })
   .catch((error) => errorHandler(error, dispatch))

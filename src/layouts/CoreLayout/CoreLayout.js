@@ -49,8 +49,8 @@ export class CoreLayout extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  isAuth: false, // state.auth.isAuth,
-  user: {} // state.session.currentUser
+  isAuth: state.session.authenticated, // state.auth.isAuth,
+  user: state.session.currentUser
 })
 
 export default connect(mapStateToProps)(SizeMe({refreshRate: 300})(CoreLayout))

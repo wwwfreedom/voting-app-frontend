@@ -29,7 +29,7 @@ export function Header ({
     {
     isAuth ? <DropDownMenu value={link} onChange={onDropDownMenuChange}
       menuStyle={{padding: '0px'}} style={getStyle(width).navLinkButton}>
-      <MenuItem value={'/'} primaryText='Home' label='Kevin' style={menuItemStylefix} />
+      <MenuItem value={'/'} primaryText='Home' label={user.firstName} style={menuItemStylefix} />
       <MenuItem value={'/account'} primaryText='Account' label='Account' style={menuItemStylefix} />
       <MenuItem value={'/signout'} primaryText='Sign out' label='Sign out' style={menuItemStylefix} />
     </DropDownMenu>
