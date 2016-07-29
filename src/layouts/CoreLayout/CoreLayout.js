@@ -28,6 +28,8 @@ export class CoreLayout extends Component {
 
   render() {
     const { children, isAuth, user, size: {width} } = this.props
+    const childrenWithProps = React.Children.map(children,
+      (child) => React.cloneElement(child, { width }))
     return (
       <div>
         <Header
@@ -39,7 +41,7 @@ export class CoreLayout extends Component {
           width={width}
         />
         <div className={style.mainContainer}>
-          {children}
+          {childrenWithProps}
         </div>
       </div>
     )
