@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import Header from 'components/Header'
+import SidebarNav from 'components/SidebarNav'
 import SizeMe from 'react-sizeme'
 import style from './CoreLayout.scss'
 import '../../styles/core.scss'
@@ -26,6 +27,15 @@ export class CoreLayout extends Component {
     this.props.dispatch(push(value))
   }
 
+  onSidebarLinkClick = () => {
+    // close the sidebar
+    this.setState({ isMobileMenuOpen: false })
+  }
+
+  onSidebarActivate = (open) => {
+    this.setState({isMobileMenuOpen: open})
+  }
+
   render() {
     const { children, isAuth, user, size: {width} } = this.props
     const childrenWithProps = React.Children.map(children,
@@ -39,6 +49,13 @@ export class CoreLayout extends Component {
           link={this.state.link}
           onDropDownMenuChange={this.onDropDownMenuChange}
           width={width}
+        />
+        <SidebarNav
+          onSidebarLinkClick={this.onSidebarLinkClick}
+          onSidebarActivate={this.onSidebarActivate}
+          docked={false}
+          open={this.state.isMobileMenuOpen}
+          isAuth={isAuth}
         />
         <div className={style.mainContainer}>
           {childrenWithProps}

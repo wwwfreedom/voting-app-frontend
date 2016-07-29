@@ -94,4 +94,4 @@ export default reduxForm({
   form: 'emailLogin',
   fields: ['email', 'password'],
   validate
-}, mapStateToProps, mapActionCreators)(SizeMe({refreshRate: 300})(LoginContainer))
+}, mapStateToProps, mapActionCreators)(LoginContainer)

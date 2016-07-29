@@ -131,8 +131,7 @@
 }
 
 .forgot {
-  padding-top: 5px; // got get the forget password text to line up with remember me
-  text-decoration: underline;
+  padding-top: 10px; // got get the forget password text to line up with remember me
 }
 
 .checkbox {
@@ -147,7 +146,9 @@
 }
 
 .signupText {
+  font-size: 0.8em;
   @include MQ(SM) {
+    font-size: 0.9em;
     letter-spacing: 0.1em;
   }
 }

@@ -38,7 +38,7 @@ export const emailLogin = ({email, password, rememberMe}) => (dispatch, getState
       dispatch(loginFinish())
       // redirect to the route /feature
       dispatch(push('/account'))
-    }, 300) // add slight delay for loader to draw for ux
+    }, 3000000000000000) // add slight delay for loader to draw for ux
   })
   .catch((error) => errorHandler(error, dispatch))
 }

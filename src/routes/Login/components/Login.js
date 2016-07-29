@@ -8,7 +8,7 @@ import {grey50, grey400} from 'material-ui/styles/colors'
 import Checkbox from 'material-ui/checkbox'
 import {Link} from 'react-router'
 import RefreshIndicator from 'material-ui/RefreshIndicator'
-import { tiny } from '../../../utils/windowsize.js'
+import { tiny, small } from '../../../utils/windowsize.js'
 import sty from './Login.scss'
 
 export default function Login ({
@@ -79,7 +79,7 @@ export default function Login ({
           {loading ? <div className={sty.loading}>
             <RefreshIndicator
               size={50}
-              left={width === tiny ? 135 : 221}
+              left={width < small ? 135 : 221}
               top={0}
               loadingColor={'#FF9800'}
               status='loading'
