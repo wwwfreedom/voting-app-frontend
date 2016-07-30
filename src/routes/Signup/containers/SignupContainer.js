@@ -1,62 +1,64 @@
 import React, { Component, PropTypes } from 'react'
-import { emailLogin } from '../modules/Login'
-import Login from '../components/Login'
+import { emailSignup } from '../modules/Signup'
+import Signup from '../components/Signup'
 import Modal from 'components/Modal'
 import isEmail from 'validator/lib/isEmail'
 import { reduxForm } from 'redux-form'
 import RaisedButton from 'material-ui/RaisedButton'
 
-export class LoginContainer extends Component {
+export class SignupContainer extends Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired, // from redux-form
     fields: PropTypes.object.isRequired, // from redux-form
-    emailLogin: PropTypes.func.isRequired, // from login action
-    login: PropTypes.object.isRequired, // from login state
+    emailSignup: PropTypes.func.isRequired, // from signup action
+    signup: PropTypes.object.isRequired, // from signup reducer state
     width: PropTypes.number.isRequired // from Size Me HoC
   };
 
   state = {
     open: false,
-    check: false
+    formExpand: false
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.login.error.status !== this.props.login.error.status) {
-      this.setState({open: nextProps.login.error.status})
+    if (nextProps.signup.error.status !== this.props.signup.error.status) {
+      this.setState({open: nextProps.signup.error.status})
     }
   }
 
-  handleOpen = () => this.setState({open: true})
-
   handleClose = () => this.setState({open: false})
+
+  handleExpand = () => this.setState({formExpand: true})
 
   handleRememberMe = () => this.setState({check: !this.state.check})
 
-  handleFormSubmit({email, password}) {
-    this.props.emailLogin({email, password, rememberMe: this.state.check})
+  handleFormSubmit({firstName, lastName, email, password}) {
+    this.props.emailSignup({firstName, lastName, email, password})
   }
 
   render() {
-    const { handleSubmit, fields: { email, password }, login, emailLogin, width } = this.props
+    const { handleSubmit, fields: { firstName, lastName, email, password }, signup, emailSignup, width } = this.props
     return (
       <div>
-        <Login
+        <Signup
           handleSubmit={handleSubmit(this.handleFormSubmit.bind(this))}
+          firstName={firstName}
+          lastName={lastName}
           email={email}
           password={password}
-          loading={login.loading}
-          emailLogin={emailLogin}
+          loading={signup.loading}
+          emailSignup={emailSignup}
           width={width}
-          handleRememberMe={this.handleRememberMe}
-          check={this.state.check}
+          handleExpand={this.handleExpand}
+          formExpand={this.state.formExpand}
         />
         <Modal
-          title={login.error.status ? 'Login Error' : ''}
+          title={signup.error.status ? 'Signup Error' : ''}
           modal={false}
           open={this.state.open}
           handleClose={this.handleClose}
           type='error'
-          message={login.error.message}
+          message={signup.error.message}
           actions={<RaisedButton label='Dismiss' primary onTouchTap={this.handleClose} />}
         />
       </div>
@@ -65,11 +67,19 @@ export class LoginContainer extends Component {
 }
 
 const mapActionCreators = {
-  emailLogin
+  emailSignup
 }
 
 function validate(formProps) {
   const errors = {}
+  if (!formProps.firstName) {
+    errors.firstName = 'Please enter your first name'
+  }
+
+  if (!formProps.lastName) {
+    errors.lastName = 'Please enter your last name'
+  }
+
   if (!formProps.email) {
     errors.email = 'Please enter an email'
   }
@@ -86,11 +96,11 @@ function validate(formProps) {
 }
 
 const mapStateToProps = (state) => ({
-  login: state.Login
+  signup: state.Signup
 })
 
 export default reduxForm({
-  form: 'emailLogin',
-  fields: ['email', 'password'],
+  form: 'Signup',
+  fields: ['firstName', 'lastName', 'email', 'password'],
   validate
-}, mapStateToProps, mapActionCreators)(LoginContainer)
+}, mapStateToProps, mapActionCreators)(SignupContainer)

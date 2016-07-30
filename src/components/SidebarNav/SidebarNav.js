@@ -31,6 +31,7 @@ export default function SidebarNav ({ docked, onSidebarLinkClick, open, onSideba
         primaryText='Login'
         style={menuItemStylefix}
         onTouchTap={onSidebarLinkClick}
+        key={1}
       />
     </Link>,
     <Link to='/signup' style={{textDecoration: 'none'}}>
@@ -38,6 +39,7 @@ export default function SidebarNav ({ docked, onSidebarLinkClick, open, onSideba
         primaryText='Sign up'
         style={menuItemStylefix}
         onTouchTap={onSidebarLinkClick}
+        key={2}
       />
     </Link>
   ]

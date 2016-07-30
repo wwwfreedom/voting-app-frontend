@@ -4,12 +4,13 @@ import CardActions from 'material-ui/Card/CardActions'
 import CardText from 'material-ui/Card/CardText'
 import Textfield from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
-import {grey50, grey400} from 'material-ui/styles/colors'
+import {grey100, grey400, grey200} from 'material-ui/styles/colors'
 import Checkbox from 'material-ui/checkbox'
 import {Link} from 'react-router'
 import RefreshIndicator from 'material-ui/RefreshIndicator'
-import { tiny, small } from '../../../utils/windowsize.js'
+import { small } from '../../../utils/windowsize.js'
 import sty from './Login.scss'
+import AuthButton from 'components/AuthButton'
 
 export default function Login ({
   handleSubmit, email, password, loading, emailLogin, width, check, handleRememberMe
@@ -21,22 +22,18 @@ export default function Login ({
     >
       <Card className={sty.card}>
         <div className={sty.thirdPartySignin}>
-          <RaisedButton
+          <AuthButton
             label='Log in with Google'
-            primary
-            labelPosition='before'
-            className={sty.signinButton}
-          >
-            <a href={'https://google.com'} className={sty.input}></a>
-          </RaisedButton>
-          <RaisedButton
+            childType='link'
+            link='https://google.com'
+            backgroundColor={grey100}
+          />
+          <AuthButton
             label='Log in with Github'
-            primary
-            labelPosition='before'
-            className={sty.signinButton}
-          >
-            <a href={'https://google.com'} className={sty.input}></a>
-          </RaisedButton>
+            backgroundColor={grey200}
+            childType='link'
+            link='https://google.com'
+          />
           <div className={sty.separator}>
             <div className={sty.lineSeparator}><span>or</span></div>
           </div>
@@ -85,20 +82,17 @@ export default function Login ({
               status='loading'
             />
           </div>
-          : <RaisedButton
+          : <AuthButton
             label='Log In'
-            primary
-            labelPosition='before'
-            className={sty.loginButton}
-          >
-            <input type='submit' className={sty.input} />
-          </RaisedButton>
+            type='primary'
+            childType='input'
+          />
         }
-          <hr />
+          <hr style={{marginTop: '2em'}} />
           <div className={sty.signup}>
             <div className={sty.signupText}>Don't have an account?</div>
             <Link to='/signup'>
-              <RaisedButton label='Sign up'labelPosition='before' backgroundColor={grey50} />
+              <RaisedButton label='Sign up'labelPosition='before' backgroundColor={grey100} />
             </Link>
           </div>
         </CardActions>

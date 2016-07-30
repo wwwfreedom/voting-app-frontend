@@ -39,7 +39,7 @@
 
 .thirdPartySignin {
   text-align: center;
-  margin: em auto 1em auto;
+  margin: 1em auto 1em auto;
   @include MQ(SM) {
     padding: 32px 32px 0 32px !important;
   }
@@ -47,8 +47,7 @@
 
 .separator {
   color: #999;
-  margin: 1.5em auto;
-  margin-bottom: 0;
+  margin: 1em auto;
   position: relative;
   z-index: 3;
   width: 250px;
@@ -75,29 +74,10 @@
   }
 }
 
-.rememberOrForgot {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  margin-top: 1em;
-  font-size: 0.8em;
-  @include MQ(SM) {
-    font-size: 1em;
-  }
-}
-
-.forgot {
-  padding-top: 10px; // got get the forget password text to line up with remember me
-}
-
-.checkbox {
-  padding-top: 5px; // got get the forget password text to line up with remember me
-}
-
 .signup {
   display: flex;
   justify-content: space-between;
-  margin: 0 1em !important;
+  margin: 1em 1em 0 1em !important;
   align-items: center;
 }
 
