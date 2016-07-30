@@ -44,7 +44,7 @@ export default function AuthButton ({label, type, childType, link, backgroundCol
 
 AuthButton.propTypes = {
   label: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string,
   childType: PropTypes.string.isRequired,
   link: PropTypes.string,
   backgroundColor: PropTypes.string,

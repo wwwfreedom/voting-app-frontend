@@ -21,6 +21,6 @@ Modal.propTypes = {
   modal: PropTypes.bool.isRequired,
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string,
   message: PropTypes.string.isRequired
 }

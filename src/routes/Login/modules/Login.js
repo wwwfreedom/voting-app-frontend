@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { push } from 'react-router-redux'
 import { setCurrentUser, authSet } from 'redux/session.js'
-import {apiUrl, googleOauthParams, githubOauthParams} from '../../../globalVar.js'
+import { apiUrl, googleOauthParams, githubOauthParams } from 'globalVar.js'
+import errorHandler from 'utils/errorHandler'
 
 // ------------------------------------
 // Constants
@@ -41,25 +42,7 @@ export const emailLogin = ({email, password, rememberMe}) => (dispatch, getState
       dispatch(push('/'))
     }, 300) // add slight delay for loader to draw for ux
   })
-  .catch((error) => errorHandler(error, dispatch))
-}
-
-// ------------------------------------
-// Util Function
-// ------------------------------------
-function errorHandler(error, dispatch) {
-  // error case when Api server is down
-  if (error instanceof Error && error.message.includes('Network')) {
-    dispatch(loginError({
-      message: `Sorry there's a ${error.message}. Please retry again later.`,
-      status: true
-    }))
-  } else { // if request is bad...
-    dispatch(loginError({
-      message: error.response.data.message || error.response.statusText,
-      status: true
-    }))
-  }
+  .catch((error) => errorHandler(error, dispatch, loginError))
 }
 
 // ------------------------------------

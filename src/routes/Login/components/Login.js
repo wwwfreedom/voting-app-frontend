@@ -8,7 +8,7 @@ import {grey100, grey400, grey200} from 'material-ui/styles/colors'
 import Checkbox from 'material-ui/checkbox'
 import {Link} from 'react-router'
 import RefreshIndicator from 'material-ui/RefreshIndicator'
-import { small } from '../../../utils/windowsize.js'
+import { small } from 'utils/windowsize.js'
 import sty from './Login.scss'
 import AuthButton from 'components/AuthButton'
 
@@ -67,7 +67,7 @@ export default function Login ({
               />
             </div>
             <div className={sty.forgot}>
-              <Link to='/forgotPassword'>Forgot password?</Link>
+              <Link to='/forgot_password'>Forgot password?</Link>
             </div>
           </div>
         </CardText>

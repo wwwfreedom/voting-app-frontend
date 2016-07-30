@@ -26,8 +26,6 @@ export class LoginContainer extends Component {
     }
   }
 
-  handleOpen = () => this.setState({open: true})
-
   handleClose = () => this.setState({open: false})
 
   handleRememberMe = () => this.setState({check: !this.state.check})

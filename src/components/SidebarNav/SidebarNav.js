@@ -26,20 +26,18 @@ export default function SidebarNav ({ docked, onSidebarLinkClick, open, onSideba
   ]
 
   const unAuthenticatedLinks = [
-    <Link to='/login' style={{textDecoration: 'none'}}>
+    <Link to='/login' style={{textDecoration: 'none'}} key={1}>
       <MenuItem
         primaryText='Login'
         style={menuItemStylefix}
         onTouchTap={onSidebarLinkClick}
-        key={1}
       />
     </Link>,
-    <Link to='/signup' style={{textDecoration: 'none'}}>
+    <Link to='/signup' style={{textDecoration: 'none'}} key={2}>
       <MenuItem
         primaryText='Sign up'
         style={menuItemStylefix}
         onTouchTap={onSidebarLinkClick}
-        key={2}
       />
     </Link>
   ]
