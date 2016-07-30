@@ -5,6 +5,7 @@ import CounterRoute from './Counter'
 import LoginRoute from './Login'
 import SignupRoute from './Signup'
 import ForgotPasswordRoute from './ForgotPassword'
+import ResetPasswordRoute from './ResetPassword'
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
@@ -17,7 +18,8 @@ export const createRoutes = (store) => ({
     CounterRoute(store),
     LoginRoute(store),
     SignupRoute(store),
-    ForgotPasswordRoute(store)
+    ForgotPasswordRoute(store),
+    ResetPasswordRoute(store)
   ]
 })
 

@@ -7,30 +7,30 @@ import errorHandler from 'utils/errorHandler'
 // Constants
 // ------------------------------------
 
-export const FORGOT_PASSWORD_START = 'FORGOT_PASSWORD_START'
-export const FORGOT_PASSWORD_FINISH = 'FORGOT_PASSWORD_FINISH'
-export const FORGOT_PASSWORD_ERROR = 'FORGOT_PASSWORD_ERROR'
+export const RESET_PASSWORD_START = 'RESET_PASSWORD_START'
+export const RESET_PASSWORD_FINISH = 'RESET_PASSWORD_FINISH'
+export const RESET_PASSWORD_ERROR = 'RESET_PASSWORD_ERROR'
 // ------------------------------------
 // Actions
 // ------------------------------------
 
-export const forgotPasswordStart = () => ({type: FORGOT_PASSWORD_START})
-export const forgotPasswordFinish = (message) => ({type: FORGOT_PASSWORD_FINISH, payload: message})
-export const forgotPasswordError = (error) => ({type: FORGOT_PASSWORD_ERROR, payload: error})
+export const resetPasswordStart = () => ({type: RESET_PASSWORD_START})
+export const resetPasswordFinish = (message) => ({type: RESET_PASSWORD_FINISH, payload: message})
+export const resetPasswordError = (error) => ({type: RESET_PASSWORD_ERROR, payload: error})
 // ------------------------------------
 // Thunk Actions
 // ------------------------------------
 
-export const forgotPassword = ({email}) => (dispatch) => {
-  dispatch(forgotPasswordStart())
+export const resetPassword = ({password, token}) => (dispatch) => {
+  dispatch(resetPasswordStart())
 
-  axios.post(`${apiUrl}/forgot_password`, {email})
+  axios.post(`${apiUrl}/reset_password/${token}`, {password, token})
   .then((response) => {
-    dispatch(forgotPasswordFinish(response.data.message))
+    dispatch(resetPasswordFinish(response.data.message))
   })
   .catch((error) => {
-    errorHandler(error, dispatch, forgotPasswordError)
-    dispatch(reset('forgotPassword'))
+    errorHandler(error, dispatch, resetPasswordError)
+    dispatch(reset('resetPassword'))
   })
 }
 
@@ -39,18 +39,18 @@ export const forgotPassword = ({email}) => (dispatch) => {
 // ------------------------------------
 
 const ACTION_HANDLERS = {
-  [FORGOT_PASSWORD_START]: (state) => ({
+  [RESET_PASSWORD_START]: (state) => ({
     ...state,
     loading: true,
     successMessage: '',
-    error: { message: '', status: false } // reset error on auth start
+    error: { message: '', status: false } // reset error on start
   }),
-  [FORGOT_PASSWORD_FINISH]: (state, action) => ({
+  [RESET_PASSWORD_FINISH]: (state, action) => ({
     ...state,
     successMessage: action.payload,
     loading: false
   }),
-  [FORGOT_PASSWORD_ERROR]: (state, action) => ({
+  [RESET_PASSWORD_ERROR]: (state, action) => ({
     ...state,
     error: action.payload,
     loading: false
@@ -69,7 +69,7 @@ const initialState = {
     status: false
   }
 }
-export default function forgotPasswordReducer (state = initialState, action) {
+export default function resetPasswordReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
 
   return handler ? handler(state, action) : state
