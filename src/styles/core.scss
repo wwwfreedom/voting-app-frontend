@@ -20,4 +20,13 @@
   *:after {
     box-sizing: inherit;
   }
+
+  // this is to stop the normalize from interfering the the material ui style
+  // [type=reset],
+  // [type=submit],
+  button,
+  html
+  [type=button] {
+    -webkit-appearance: none
+  }
 }

@@ -1,7 +1,14 @@
+import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { } from '../modules/<%= pascalEntityName %>'
 
 import <%= pascalEntityName %> from '../components/<%= pascalEntityName %>'
+
+export class <%= pascalEntityName %>Container extends Component {
+  render() {
+    return (
+    )
+  }
+}
 
 const mapActionCreators = {
 }
@@ -9,4 +16,4 @@ const mapActionCreators = {
 const mapStateToProps = (state) => ({
 })
 
-export default connect(mapStateToProps, mapActionCreators)(<%= pascalEntityName %>)
+export default connect(mapStateToProps, mapActionCreators)(<%= pascalEntityName %>Container)

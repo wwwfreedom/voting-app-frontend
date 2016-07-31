@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react'
-import React from 'react'
 import sty from './<%= pascalEntityName %>.scss'
 
 export const <%= pascalEntityName %> = () => (
