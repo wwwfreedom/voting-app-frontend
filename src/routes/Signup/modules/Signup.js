@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { push } from 'react-router-redux'
 import { setCurrentUser, authSet } from 'redux/session.js'
-import {apiUrl, googleOauthParams, githubOauthParams} from 'globalVar.js'
+import { apiUrl } from 'globalVar.js'
 import errorHandler from 'utils/errorHandler'
 
 // ------------------------------------
@@ -70,9 +70,7 @@ const initialState = {
   error: {
     message: '',
     status: false
-  },
-  google: googleOauthParams,
-  github: githubOauthParams
+  }
 }
 
 export default function signupReducer (state = initialState, action) {

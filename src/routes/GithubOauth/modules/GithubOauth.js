@@ -1,64 +1,55 @@
 import axios from 'axios'
 import { push } from 'react-router-redux'
 import { setCurrentUser, authSet } from 'redux/session.js'
-import { apiUrl } from 'globalVar.js'
+import { googleOauthParams, githubOauthParams } from 'globalVar.js'
 import errorHandler from 'utils/errorHandler'
-
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const LOGIN_START = 'LOGIN_START'
-export const LOGIN_FINISH = 'LOGIN_FINISH'
-export const LOGIN_ERROR = 'LOGIN_ERROR'
 
+export const GITHUB_OAUTH_START = 'GITHUB_OAUTH_START'
+export const GITHUB_OAUTH_FINISH = 'GITHUB_OAUTH_FINISH'
+export const GITHUB_OAUTH_ERROR = 'GITHUB_OAUTH_ERROR'
 // ------------------------------------
 // Actions
 // ------------------------------------
-export const loginStart = () => ({type: LOGIN_START})
-export const loginFinish = () => ({type: LOGIN_FINISH})
-export const loginError = (error) => ({ type: LOGIN_ERROR, payload: error })
+
+export const githubOauthStart = () => ({type: GITHUB_OAUTH_START})
+export const githubOauthFinish = () => ({type: GITHUB_OAUTH_FINISH})
+export const githubOauthError = (error) => ({ type: GITHUB_OAUTH_ERROR, payload: error })
 
 // ------------------------------------
 // Thunk Actions
 // ------------------------------------
 
-export const emailLogin = ({email, password, rememberMe}) => (dispatch, getState) => {
-  dispatch(loginStart())
-  // submit email password to server
-  axios.post(`${apiUrl}/login`, {
-    email, password, rememberMe: JSON.stringify(rememberMe)
-  })
+export const githubLogin = (code) => (dispatch, getState) => {
+  const params = { ...getState().GithubOauth.github.params, code }
+  const url = getState().GithubOauth.github.url
+  dispatch(githubOauthStart())
+  axios.post(url, params)
   .then((response) => {
-    // save the JWT token to local storage
     localStorage.setItem('token', response.data.token)
     dispatch(setCurrentUser(response.data.user))
-  })
-  .then(() => {
     dispatch(authSet(true))
-    // update state to indicate user is authenticated
-    setTimeout(function() {
-      dispatch(loginFinish())
-      // redirect to the route /feature
-      dispatch(push('/'))
-    }, 300) // add slight delay for loader to draw for ux
+    dispatch(githubOauthFinish())
+    dispatch(push('/'))
   })
-  .catch((error) => errorHandler(error, dispatch, loginError))
+  .catch((error) => errorHandler(error, dispatch, githubOauthError))
 }
-
 // ------------------------------------
 // Action Handlers
 // ------------------------------------
 const ACTION_HANDLERS = {
-  [LOGIN_START]: (state) => ({
+  [GITHUB_OAUTH_START]: (state) => ({
     ...state,
     loading: true,
     error: { message: '', status: false } // reset error on auth start
   }),
-  [LOGIN_FINISH]: (state) => ({
+  [GITHUB_OAUTH_FINISH]: (state) => ({
     ...state,
     loading: false
   }),
-  [LOGIN_ERROR]: (state, action) => ({
+  [GITHUB_OAUTH_ERROR]: (state, action) => ({
     ...state,
     error: action.payload,
     loading: false
@@ -74,10 +65,11 @@ const initialState = {
   error: {
     message: '',
     status: false
-  }
+  },
+  google: googleOauthParams,
+  github: githubOauthParams
 }
-
-export default function loginReducer (state = initialState, action) {
+export default function GithubOauthReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
 
   return handler ? handler(state, action) : state

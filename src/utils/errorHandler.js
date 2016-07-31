@@ -1,5 +1,4 @@
 export default function errorHander (error, dispatch, action) {
-  console.log(error.response)
   // error case when Api server is down
   if (error instanceof Error && error.message.includes('Network')) {
     dispatch(action({

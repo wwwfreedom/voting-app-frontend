@@ -13,7 +13,7 @@ import sty from './Login.scss'
 import AuthButton from 'components/AuthButton'
 
 export default function Login ({
-  handleSubmit, email, password, loading, emailLogin, width, check, handleRememberMe
+  handleSubmit, email, password, loading, emailLogin, width, check, handleRememberMe, googleOauthUrl, githubOauthUrl
 }) {
   return (
     <form
@@ -25,14 +25,14 @@ export default function Login ({
           <AuthButton
             label='Log in with Google'
             childType='link'
-            link='https://google.com'
+            link={googleOauthUrl}
             backgroundColor={grey100}
           />
           <AuthButton
             label='Log in with Github'
             backgroundColor={grey200}
             childType='link'
-            link='https://google.com'
+            link={githubOauthUrl}
           />
           <div className={sty.separator}>
             <div className={sty.lineSeparator}><span>or</span></div>
@@ -109,5 +109,7 @@ Login.propTypes = {
   emailLogin: PropTypes.func.isRequired,
   width: PropTypes.number.isRequired,
   email: PropTypes.object.isRequired,
-  password: PropTypes.object.isRequired
+  password: PropTypes.object.isRequired,
+  githubOauthUrl: PropTypes.string.isRequired,
+  googleOauthUrl: PropTypes.string.isRequired
 }

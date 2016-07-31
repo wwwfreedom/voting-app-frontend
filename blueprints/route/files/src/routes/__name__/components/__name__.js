@@ -1,10 +1,15 @@
+import React, { PropTypes } from 'react'
 import React from 'react'
-import classes from './<%= pascalEntityName %>.scss'
+import sty from './<%= pascalEntityName %>.scss'
 
 export const <%= pascalEntityName %> = () => (
-  <div className={classes['<%= pascalEntityName %>']}>
+  <div className={sty.container}>
     <h4><%= pascalEntityName %></h4>
   </div>
 )
+
+<%= pascalEntityName %>.propTypes = {
+  : PropTypes.
+}
 
 export default <%= pascalEntityName %>

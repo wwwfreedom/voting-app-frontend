@@ -5,6 +5,8 @@ import Modal from 'components/Modal'
 import isEmail from 'validator/lib/isEmail'
 import { reduxForm } from 'redux-form'
 import RaisedButton from 'material-ui/RaisedButton'
+import { githubOauthParams, googleOauthParams } from 'globalVar.js'
+import qs from 'querystring'
 
 export class LoginContainer extends Component {
   static propTypes = {
@@ -36,6 +38,8 @@ export class LoginContainer extends Component {
 
   render() {
     const { handleSubmit, fields: { email, password }, login, emailLogin, width } = this.props
+    let githubOauthUrl = `${githubOauthParams.authorizationUrl}?${qs.stringify(githubOauthParams.params)}`
+    let googleOauthUrl = `${googleOauthParams.authorizationUrl}?${qs.stringify(googleOauthParams.params)}`
     return (
       <div>
         <Login
@@ -47,6 +51,8 @@ export class LoginContainer extends Component {
           width={width}
           handleRememberMe={this.handleRememberMe}
           check={this.state.check}
+          googleOauthUrl={googleOauthUrl}
+          githubOauthUrl={githubOauthUrl}
         />
         <Modal
           title={login.error.status ? 'Login Error' : ''}
@@ -60,10 +66,6 @@ export class LoginContainer extends Component {
       </div>
     )
   }
-}
-
-const mapActionCreators = {
-  emailLogin
 }
 
 function validate(formProps) {
@@ -83,12 +85,10 @@ function validate(formProps) {
   return errors
 }
 
-const mapStateToProps = (state) => ({
-  login: state.Login
-})
+const mapStateToProps = (state) => ({ login: state.Login })
 
 export default reduxForm({
   form: 'emailLogin',
   fields: ['email', 'password'],
   validate
-}, mapStateToProps, mapActionCreators)(LoginContainer)
+}, mapStateToProps, {emailLogin})(LoginContainer)
