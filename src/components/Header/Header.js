@@ -6,7 +6,6 @@ import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import {MenuItem} from 'material-ui/Menu'
 import DropDownMenu from 'material-ui/DropDownMenu'
-import SizeMe from 'react-sizeme'
 
 const menuItemStylefix = {WebkitAppearance: 'none', cursor: 'pointer'}
 
@@ -31,7 +30,7 @@ export function Header ({
       menuStyle={{padding: '0px'}} style={getStyle(width).navLinkButton}>
       <MenuItem value={'/'} primaryText='Home' label={user.firstName} style={menuItemStylefix} />
       <MenuItem value={'/account'} primaryText='Account' label='Account' style={menuItemStylefix} />
-      <MenuItem value={'/signout'} primaryText='Sign out' label='Sign out' style={menuItemStylefix} />
+      <MenuItem value={'logOut'} primaryText='Log out' label='Log out' style={menuItemStylefix} />
     </DropDownMenu>
     : <div style={getStyle(width).navLinkButton}>
       <Link to='/login'>
@@ -91,4 +90,4 @@ function getStyle(width) {
   return styles
 }
 
-export default SizeMe({refreshRate: 300})(Header)
+export default (Header)

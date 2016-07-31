@@ -5,7 +5,9 @@ import {Link} from 'react-router'
 
 const menuItemStylefix = {WebkitAppearance: 'none', cursor: 'pointer'}
 
-export default function SidebarNav ({ docked, onSidebarLinkClick, open, onSidebarActivate, isAuth }) {
+export default function SidebarNav ({
+  docked, onSidebarLinkClick, open, onSidebarActivate, isAuth, onSidebarLogOutClick
+}) {
   const authenticatedLinks = [
     <Link to='/account' style={{textDecoration: 'none'}}>
       <MenuItem
@@ -15,14 +17,12 @@ export default function SidebarNav ({ docked, onSidebarLinkClick, open, onSideba
         key={1}
       />
     </Link>,
-    <Link to='/signout' style={{textDecoration: 'none'}}>
-      <MenuItem
-        primaryText='Sign out'
-        style={menuItemStylefix}
-        onTouchTap={onSidebarLinkClick}
-        key={2}
-      />
-    </Link>
+    <MenuItem
+      primaryText='Sign out'
+      style={menuItemStylefix}
+      onTouchTap={onSidebarLogOutClick}
+      key={2}
+    />
   ]
 
   const unAuthenticatedLinks = [
@@ -63,6 +63,7 @@ export default function SidebarNav ({ docked, onSidebarLinkClick, open, onSideba
 SidebarNav.propTypes = {
   docked: PropTypes.bool.isRequired,
   onSidebarLinkClick: PropTypes.func.isRequired,
+  onSidebarLogOutClick: PropTypes.func.isRequired,
   onSidebarActivate: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   isAuth: PropTypes.bool.isRequired

@@ -5,6 +5,7 @@ import Header from 'components/Header'
 import SidebarNav from 'components/SidebarNav'
 import SizeMe from 'react-sizeme'
 import style from './CoreLayout.scss'
+import { logOut } from 'redux/session'
 import '../../styles/core.scss'
 
 export class CoreLayout extends Component {
@@ -23,13 +24,20 @@ export class CoreLayout extends Component {
   }
 
   onDropDownMenuChange = (event, index, value) => {
+    if (value === 'logOut') {
+      return this.props.dispatch(logOut())
+    }
     this.setState({link: value})
     this.props.dispatch(push(value))
   }
 
   onSidebarLinkClick = () => {
-    // close the sidebar
     this.setState({ isMobileMenuOpen: false })
+  }
+
+  onSidebarLogOutClick = () => {
+    this.setState({ isMobileMenuOpen: false })
+    this.props.dispatch(logOut())
   }
 
   onSidebarActivate = (open) => {
@@ -53,6 +61,7 @@ export class CoreLayout extends Component {
         <SidebarNav
           onSidebarLinkClick={this.onSidebarLinkClick}
           onSidebarActivate={this.onSidebarActivate}
+          onSidebarLogOutClick={this.onSidebarLogOutClick}
           docked={false}
           open={this.state.isMobileMenuOpen}
           isAuth={isAuth}
