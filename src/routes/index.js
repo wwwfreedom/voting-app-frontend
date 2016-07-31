@@ -7,6 +7,7 @@ import SignupRoute from './Signup'
 import ForgotPasswordRoute from './ForgotPassword'
 import ResetPasswordRoute from './ResetPassword'
 import GithubOauthCallbackRoute from './GithubOauth'
+import GoogleOauthCallbackRoute from './GoogleOauth'
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
@@ -21,6 +22,7 @@ export const createRoutes = (store) => ({
     SignupRoute(store),
     ForgotPasswordRoute(store),
     ResetPasswordRoute(store),
+    GoogleOauthCallbackRoute(store),
     GithubOauthCallbackRoute(store)
   ]
 })

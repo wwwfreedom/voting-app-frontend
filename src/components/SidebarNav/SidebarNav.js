@@ -9,12 +9,11 @@ export default function SidebarNav ({
   docked, onSidebarLinkClick, open, onSidebarActivate, isAuth, onSidebarLogOutClick
 }) {
   const authenticatedLinks = [
-    <Link to='/account' style={{textDecoration: 'none'}}>
+    <Link to='/account' style={{textDecoration: 'none'}} key={1}>
       <MenuItem
         primaryText='Account'
         style={menuItemStylefix}
         onTouchTap={onSidebarLinkClick}
-        key={1}
       />
     </Link>,
     <MenuItem

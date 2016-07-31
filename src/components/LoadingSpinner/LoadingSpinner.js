@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import RefreshIndicator from 'material-ui/RefreshIndicator'
 
-export const GithubOauth = () => (
+export const LoadingSpinner = ({message}) => (
   <div style={style.container}>
     <div>
       <RefreshIndicator
@@ -13,9 +13,13 @@ export const GithubOauth = () => (
         style={style.refresh}
       />
     </div>
-    <div>Logging you in...</div>
+    <div>{message}</div>
   </div>
 )
+
+LoadingSpinner.propTypes = {
+  message: PropTypes.string
+}
 
 const style = {
   container: {
@@ -32,4 +36,4 @@ const style = {
   }
 }
 
-export default GithubOauth
+export default LoadingSpinner
