@@ -12,7 +12,7 @@ import sty from './Signup.scss'
 import AuthButton from 'components/AuthButton'
 
 export default function Signup ({
-  handleSubmit, firstName, lastName, email, password, loading, emailSignup, width, handleExpand, formExpand
+  handleSubmit, firstName, lastName, email, password, loading, emailSignup, width, handleExpand, formExpand, googleOauthUrl, githubOauthUrl
 }) {
   const oAuthTextLinks = <div>
     Sign up with <a href='#'>Google</a> or <a href='#'>Facebook</a>
@@ -22,14 +22,14 @@ export default function Signup ({
       label='Signup with Google'
       type='primary'
       childType='link'
-      link='https://google.com'
+      link={googleOauthUrl}
       key={1}
     />,
     <AuthButton
       label='Signup with github'
       type='primary'
       childType='link'
-      link='https://google.com'
+      link={githubOauthUrl}
       key={2}
     />
   ]
@@ -135,5 +135,7 @@ Signup.propTypes = {
   lastName: PropTypes.object.isRequired,
   email: PropTypes.object.isRequired,
   password: PropTypes.object.isRequired,
-  formExpand: PropTypes.bool.isRequired
+  formExpand: PropTypes.bool.isRequired,
+  githubOauthUrl: PropTypes.string.isRequired,
+  googleOauthUrl: PropTypes.string.isRequired
 }

@@ -5,6 +5,8 @@ import Modal from 'components/Modal'
 import isEmail from 'validator/lib/isEmail'
 import { reduxForm } from 'redux-form'
 import RaisedButton from 'material-ui/RaisedButton'
+import { githubOauthParams, googleOauthParams } from 'globalVar.js'
+import qs from 'querystring'
 
 export class SignupContainer extends Component {
   static propTypes = {
@@ -38,6 +40,8 @@ export class SignupContainer extends Component {
 
   render() {
     const { handleSubmit, fields: { firstName, lastName, email, password }, signup, emailSignup, width } = this.props
+    let githubOauthUrl = `${githubOauthParams.authorizationUrl}?${qs.stringify(githubOauthParams.params)}`
+    let googleOauthUrl = `${googleOauthParams.authorizationUrl}?${qs.stringify(googleOauthParams.params)}`
     return (
       <div>
         <Signup
@@ -51,6 +55,8 @@ export class SignupContainer extends Component {
           width={width}
           handleExpand={this.handleExpand}
           formExpand={this.state.formExpand}
+          googleOauthUrl={googleOauthUrl}
+          githubOauthUrl={githubOauthUrl}
         />
         <Modal
           title={signup.error.status ? 'Signup Error' : ''}
