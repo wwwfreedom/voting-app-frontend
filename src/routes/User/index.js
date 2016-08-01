@@ -1,7 +1,11 @@
-import { injectReducer } from '../../store/reducers'
-
+// import { injectReducer } from 'store/reducers'
+// import User from './containers/UserContainer'
+import ProfileEditRoute from './routes/ProfileEdit'
 export default (store) => ({
-  path: 'counter',
+  path: 'user',
+  childRoutes: [
+    ProfileEditRoute(store)
+  ],
   /*  Async getComponent is only invoked when route matches   */
   getComponent (nextState, cb) {
     /*  Webpack - use 'require.ensure' to create a split point
@@ -9,16 +13,16 @@ export default (store) => ({
     require.ensure([], (require) => {
       /*  Webpack - use require callback to define
           dependencies for bundling   */
-      const Counter = require('./containers/CounterContainer').default
-      const reducer = require('./modules/counter').default
+      const User = require('./containers/UserContainer').default
+      // const reducer = require('./modules/User').default
 
       /*  Add the reducer to the store on key 'counter'  */
-      injectReducer(store, { key: 'counter', reducer })
+      // injectReducer(store, { key: 'User', reducer })
 
       /*  Return getComponent   */
-      cb(null, Counter)
+      cb(null, User)
 
     /* Webpack named bundle   */
-    }, 'counter')
+    }, 'User')
   }
 })

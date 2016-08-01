@@ -6,6 +6,7 @@ import <%= pascalEntityName %> from '../components/<%= pascalEntityName %>'
 export class <%= pascalEntityName %>Container extends Component {
   render() {
     return (
+      <<%= pascalEntityName %> />
     )
   }
 }

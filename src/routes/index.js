@@ -1,7 +1,6 @@
 // We only need to import the modules necessary for initial render
 import CoreLayout from '../layouts/CoreLayout/CoreLayout'
 import Home from './Home'
-import CounterRoute from './Counter'
 import LoginRoute from './Login'
 import SignupRoute from './Signup'
 import ForgotPasswordRoute from './ForgotPassword'
@@ -9,6 +8,7 @@ import ResetPasswordRoute from './ResetPassword'
 import GithubOauthCallbackRoute from './GithubOauth'
 import GoogleOauthCallbackRoute from './GoogleOauth'
 import NotFoundRoute from './NotFound'
+import UserRoute from './User'
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
@@ -18,13 +18,13 @@ export const createRoutes = (store) => ({
   component: CoreLayout,
   indexRoute: Home,
   childRoutes: [
-    CounterRoute(store),
     LoginRoute(store),
     SignupRoute(store),
     ForgotPasswordRoute(store),
     ResetPasswordRoute(store),
     GoogleOauthCallbackRoute(store),
     GithubOauthCallbackRoute(store),
+    UserRoute(store),
     NotFoundRoute(store)
   ]
 })
