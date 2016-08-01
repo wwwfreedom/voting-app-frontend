@@ -2,15 +2,18 @@ import axios from 'axios'
 import { push } from 'react-router-redux'
 import { apiUrl } from 'globalVar.js'
 import errorHandler from 'utils/errorHandler'
+// ------------------------------------
+// Constants
+// ------------------------------------
 
 export const USER_PROFILE_EDIT_START = 'USER_PROFILE_EDIT_START'
 export const USER_PROFILE_EDIT_FINISH = 'USER_PROFILE_EDIT_FINISH'
 export const USER_PROFILE_EDIT_ERROR = 'USER_PROFILE_EDIT_ERROR'
 export const USER_PROFILE_EDIT_FORM_PRELOAD = 'USER_PROFILE_EDIT_FORM_PRELOAD'
-// ------------------------------------
-// Constants
-// ------------------------------------
 
+// ------------------------------------
+// Actions
+// ------------------------------------
 export const userProfileEditStart = () => ({type: USER_PROFILE_EDIT_START})
 export const userProfileEditFinish = (message, user) => ({
   type: USER_PROFILE_EDIT_FINISH, payload: { message, user }

@@ -1,11 +1,13 @@
 // import { injectReducer } from 'store/reducers'
 // import User from './containers/UserContainer'
 import ProfileEditRoute from './routes/ProfileEdit'
+import SecurityRoute from './routes/Security/'
 import { requireAuth } from 'utils/authHelper'
 export default (store) => ({
   path: 'user',
   childRoutes: [
-    ProfileEditRoute(store)
+    ProfileEditRoute(store),
+    SecurityRoute(store)
   ],
   /*  Async getComponent is only invoked when route matches   */
   getComponent (nextState, cb) {
