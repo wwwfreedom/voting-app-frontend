@@ -4,7 +4,7 @@ import CardActions from 'material-ui/Card/CardActions'
 import CardText from 'material-ui/Card/CardText'
 import Textfield from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
-import {grey50} from 'material-ui/styles/colors'
+import {grey200} from 'material-ui/styles/colors'
 import {Link} from 'react-router'
 import RefreshIndicator from 'material-ui/RefreshIndicator'
 import { small } from '../../../utils/windowsize.js'
@@ -38,7 +38,7 @@ export default function Signup ({
     label='Sign up with Email'
     type=''
     childType='none'
-    backgroundColor={grey50}
+    backgroundColor={grey200}
     handleClick={handleExpand}
   />
 
@@ -57,10 +57,9 @@ export default function Signup ({
       return
     } else {
       return <AuthButton
-        label='Sign up with Email'
+        label='Sign up'
         type='primary'
         childType='input'
-        backgroundColor={grey50}
       />
     }
   }
@@ -116,7 +115,7 @@ export default function Signup ({
           <div className={sty.signup}>
             <div className={sty.signupText}>Already have an account?</div>
             <Link to='/login'>
-              <RaisedButton label='Login'labelPosition='before' backgroundColor={grey50} />
+              <RaisedButton label='Login'labelPosition='before' backgroundColor={grey200} />
             </Link>
           </div>
         </CardActions>

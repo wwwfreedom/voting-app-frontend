@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react'
 import { resetPassword } from '../modules/ResetPassword'
 import ResetPasswordForm from '../components/ResetPassword'
 import Modal from 'components/Modal'
-import { reduxForm } from 'redux-form'
 import RaisedButton from 'material-ui/RaisedButton'
+import { reduxForm } from 'redux-form'
 import { push } from 'react-router-redux'
 
 export class ResetPasswordContainer extends Component {
@@ -17,9 +17,7 @@ export class ResetPasswordContainer extends Component {
     params: PropTypes.object.isRequired // from react-router
   };
 
-  state = {
-    open: false
-  };
+  state = { open: false };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.rp.error.status !== this.props.rp.error.status) {

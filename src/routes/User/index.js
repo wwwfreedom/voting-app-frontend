@@ -2,11 +2,13 @@
 // import User from './containers/UserContainer'
 import ProfileEditRoute from './routes/ProfileEdit'
 import SecurityRoute from './routes/Security/'
+import UserSettings from './routes/UserSettings/'
 import { requireAuth } from 'utils/authHelper'
 export default (store) => ({
   path: 'user',
   childRoutes: [
     ProfileEditRoute(store),
+    UserSettings(store),
     SecurityRoute(store)
   ],
   /*  Async getComponent is only invoked when route matches   */

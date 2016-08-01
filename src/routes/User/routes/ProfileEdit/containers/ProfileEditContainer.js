@@ -35,7 +35,7 @@ export class ProfileEditContainer extends Component {
     if (nextProps.serverError.status !== this.props.serverError.status) {
       this.setState({open: nextProps.serverError.status, color: red300, message: nextProps.serverError.message})
     }
-    if (nextProps.successMessage !== this.props.successMessage) {
+    if (nextProps.successMessage !== '') {
       this.setState({open: true, color: green300, message: nextProps.successMessage})
     }
   }
