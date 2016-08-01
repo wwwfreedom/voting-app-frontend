@@ -1,4 +1,5 @@
 import { injectReducer } from '../../store/reducers'
+import { skipIfAuthenticated } from 'utils/authHelper'
 
 export default (store) => ({
   path: 'reset_password/:token',
@@ -20,5 +21,9 @@ export default (store) => ({
 
     /* Webpack named bundle   */
     }, 'ResetPassword')
+  },
+  onEnter (nextState, replace) {
+    // make sure user is authenticated before route can be access
+    skipIfAuthenticated(store, nextState, replace)
   }
 })
