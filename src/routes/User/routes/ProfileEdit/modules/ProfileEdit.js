@@ -49,7 +49,6 @@ export const getUserProfile = () => (dispatch, getState) => {
     {headers: { authorization: localStorage.getItem('token') }},
   )
   .then((res) => {
-    console.log(res)
     dispatch(userProfileEditFormPreload(res.data.user))
   })
   // if err just return empty user profile object for now

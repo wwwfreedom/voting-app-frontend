@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import AppBar from 'material-ui/AppBar'
-import {small} from '../../utils/windowsize.js'
+import {small} from 'utils/windowsize.js'
 import {IndexLink, Link} from 'react-router'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
@@ -15,11 +15,12 @@ export function Header ({
   user,
   onDropDownMenuChange,
   link,
-  width
+  width,
+  handleTitleClick
 }) {
   return (
     <AppBar
-      title={<IndexLink to='/' style={{color: 'white', textDecoration: 'none'}}>Let's Vote</IndexLink>}
+      title={<IndexLink to='/' style={{color: 'white', textDecoration: 'none'}} onClick={handleTitleClick}>Let's Vote</IndexLink>}
       showMenuIconButton={width < small}
       titleStyle={getStyle(width).appBarTitle}
       style={getStyle(width).appBar}
@@ -29,7 +30,7 @@ export function Header ({
     isAuth ? <DropDownMenu value={link} onChange={onDropDownMenuChange}
       menuStyle={{padding: '0px'}} style={getStyle(width).navLinkButton}>
       <MenuItem value={'/'} primaryText='Home' label={user.firstName} style={menuItemStylefix} />
-      <MenuItem value={'/user/profile/edit'} primaryText='Edit Profile' label='Account' style={menuItemStylefix} />
+      <MenuItem value={'/user/profile/edit'} primaryText='Edit Profile' label='Edit Profile' style={menuItemStylefix} />
       <MenuItem value={'logOut'} primaryText='Log out' label='Log out' style={menuItemStylefix} />
     </DropDownMenu>
     : <div style={getStyle(width).navLinkButton}>
@@ -47,6 +48,7 @@ export function Header ({
 Header.propTypes = {
   width: PropTypes.number.isRequired,
   onDropDownMenuChange: PropTypes.func.isRequired,
+  handleTitleClick: PropTypes.func.isRequired,
   mobileMenuClick: PropTypes.func.isRequired,
   isAuth: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,

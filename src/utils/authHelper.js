@@ -1,17 +1,19 @@
-export const requireAuth = (nextState, replace, callback) => {
+import { getCurrentUser } from 'redux/session'
+
+export const requireAuth = (store, nextState, replace, callback) => {
   const token = localStorage.getItem('token')
   const { currentUser } = store.getState().session
   if (!currentUser && token) {
     store.dispatch(getCurrentUser())
   }
   if (!token) {
-    replace('/signin')
+    replace('/login')
   }
 
   callback()
 }
 
-export const skipIfAuthenticated = (nextState, replace) => {
+export const skipIfAuthenticated = (store, nextState, replace) => {
   const token = localStorage.getItem('token')
   const { currentUser } = store.getState().session
 

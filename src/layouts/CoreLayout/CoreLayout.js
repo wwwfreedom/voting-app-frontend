@@ -6,7 +6,7 @@ import SidebarNav from 'components/SidebarNav'
 import SizeMe from 'react-sizeme'
 import style from './CoreLayout.scss'
 import { logOut } from 'redux/session'
-import '../../styles/core.scss'
+import 'styles/core.scss'
 
 export class CoreLayout extends Component {
   static propTypes = {
@@ -44,6 +44,8 @@ export class CoreLayout extends Component {
     this.setState({isMobileMenuOpen: open})
   }
 
+  onTitleClick = () => this.setState({link: '/'})
+
   render() {
     const { children, isAuth, user, size: {width} } = this.props
     const childrenWithProps = React.Children.map(children,
@@ -57,6 +59,7 @@ export class CoreLayout extends Component {
           link={this.state.link}
           onDropDownMenuChange={this.onDropDownMenuChange}
           width={width}
+          handleTitleClick={this.onTitleClick}
         />
         <SidebarNav
           onSidebarLinkClick={this.onSidebarLinkClick}

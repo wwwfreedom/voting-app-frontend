@@ -6,6 +6,7 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import createStore from './store/createStore'
 import AppContainer from './containers/AppContainer'
 import injectTapEventPlugin from 'react-tap-event-plugin'
+import { getCurrentUser, checkServerStatus } from 'redux/session'
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -27,6 +28,19 @@ const browserHistory = useRouterHistory(createBrowserHistory)({
 // react-router-redux of its location.
 const initialState = window.___INITIAL_STATE__
 const store = createStore(initialState, browserHistory)
+
+// ========================================================
+// Ping server everytime user load webpage (good for analytic and preamp heroku slow server) and Auto login if there's an existing token
+// ========================================================
+if (!store.getState().session.serverOnline) {
+  store.dispatch(checkServerStatus())
+}
+const token = localStorage.getItem('token')
+const { currentUser } = store.getState().session
+if (!currentUser.firstName && token) {
+  store.dispatch(getCurrentUser())
+}
+
 const history = syncHistoryWithStore(browserHistory, store, {
   selectLocationState: (state) => state.router
 })
