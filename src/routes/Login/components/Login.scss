@@ -3,7 +3,7 @@
 .container {
   display: flex;
   flex-flow: column nowrap;
-  margin: 0 auto;
+  margin: 2em auto;
   width: 320px;
   @include MQ(SM) {
     margin: 2em auto;
@@ -39,7 +39,7 @@
 
 .thirdPartySignin {
   text-align: center;
-  margin: em auto 1em auto;
+  margin: 1em auto 1em auto;
   @include MQ(SM) {
     padding: 32px 32px 0 32px !important;
   }

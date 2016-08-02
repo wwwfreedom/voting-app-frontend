@@ -23,7 +23,7 @@ export class ResetPasswordContainer extends Component {
     if (nextProps.rp.error.status !== this.props.rp.error.status) {
       this.setState({open: nextProps.rp.error.status})
     }
-    if (nextProps.rp.successMessage !== '') {
+    if (nextProps.rp.successMessage !== this.props.rp.successMessage) {
       this.setState({open: true})
     }
   }

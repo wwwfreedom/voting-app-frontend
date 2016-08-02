@@ -4,10 +4,10 @@ import CardActions from 'material-ui/Card/CardActions'
 import CardText from 'material-ui/Card/CardText'
 import Textfield from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
-import {grey200} from 'material-ui/styles/colors'
+import {grey100, grey300} from 'material-ui/styles/colors'
 import {Link} from 'react-router'
 import RefreshIndicator from 'material-ui/RefreshIndicator'
-import { small } from '../../../utils/windowsize.js'
+import { small } from 'utils/windowsize.js'
 import sty from './Signup.scss'
 import AuthButton from 'components/AuthButton'
 
@@ -20,25 +20,24 @@ export default function Signup ({
   const oAuthButtons = [
     <AuthButton
       label='Signup with Google'
-      type='primary'
       childType='link'
       link={googleOauthUrl}
+      backgroundColor={grey100}
       key={1}
     />,
     <AuthButton
       label='Signup with github'
-      type='primary'
       childType='link'
       link={githubOauthUrl}
+      backgroundColor={grey300}
       key={2}
     />
   ]
 
   const localAuthButton = <AuthButton
     label='Sign up with Email'
-    type=''
+    type='primary'
     childType='none'
-    backgroundColor={grey200}
     handleClick={handleExpand}
   />
 
@@ -115,7 +114,7 @@ export default function Signup ({
           <div className={sty.signup}>
             <div className={sty.signupText}>Already have an account?</div>
             <Link to='/login'>
-              <RaisedButton label='Login'labelPosition='before' backgroundColor={grey200} />
+              <RaisedButton label='Login'labelPosition='before' backgroundColor={grey300} />
             </Link>
           </div>
         </CardActions>

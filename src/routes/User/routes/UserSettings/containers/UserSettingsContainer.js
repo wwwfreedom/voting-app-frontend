@@ -23,7 +23,7 @@ export class UserSettingsContainer extends Component {
     if (nextProps.serverError.status !== this.props.serverError.status) {
       this.setState({open: nextProps.serverError.status})
     }
-    if (nextProps.successMessage !== '') {
+    if (nextProps.successMessage !== this.props.successMessage) {
       this.setState({open: true})
     }
   }

@@ -25,7 +25,7 @@ export const signupError = (error) => ({ type: SIGNUP_ERROR, payload: error })
 export const emailSignup = ({firstName, lastName, email, password}) => (dispatch, getState) => {
   dispatch(signupStart())
   // submit email password to server
-  axios.post(`${apiUrl}/signup`, { firstName, lastName, email, password })
+  axios.post(`${apiUrl}/user/signup`, { firstName, lastName, email, password })
   .then((response) => {
     // save the JWT token to local storage
     localStorage.setItem('token', response.data.token)

@@ -25,7 +25,7 @@ export class ForgotPasswordContainer extends Component {
     if (nextProps.ForgotPassword.error.status !== this.props.ForgotPassword.error.status) {
       this.setState({open: nextProps.ForgotPassword.error.status})
     }
-    if (nextProps.ForgotPassword.successMessage !== '') {
+    if (nextProps.ForgotPassword.successMessage !== this.props.ForgotPassword.successMessage) {
       this.setState({open: true})
     }
   }

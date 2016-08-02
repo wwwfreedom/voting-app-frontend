@@ -4,7 +4,7 @@ import CardActions from 'material-ui/Card/CardActions'
 import CardText from 'material-ui/Card/CardText'
 import Textfield from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
-import {grey100, grey400, grey200} from 'material-ui/styles/colors'
+import {grey100, grey400, grey300} from 'material-ui/styles/colors'
 import Checkbox from 'material-ui/checkbox'
 import {Link} from 'react-router'
 import RefreshIndicator from 'material-ui/RefreshIndicator'
@@ -30,7 +30,7 @@ export default function Login ({
           />
           <AuthButton
             label='Log in with Github'
-            backgroundColor={grey200}
+            backgroundColor={grey300}
             childType='link'
             link={githubOauthUrl}
           />
@@ -92,7 +92,7 @@ export default function Login ({
           <div className={sty.signup}>
             <div className={sty.signupText}>Don't have an account?</div>
             <Link to='/signup'>
-              <RaisedButton label='Sign up'labelPosition='before' backgroundColor={grey100} />
+              <RaisedButton label='Sign up'labelPosition='before' backgroundColor={grey300} />
             </Link>
           </div>
         </CardActions>

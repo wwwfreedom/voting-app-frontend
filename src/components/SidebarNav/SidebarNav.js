@@ -9,7 +9,7 @@ export default function SidebarNav ({
   docked, onSidebarLinkClick, open, onSidebarActivate, isAuth, onSidebarLogOutClick
 }) {
   const authenticatedLinks = [
-    <Link to='/account' style={{textDecoration: 'none'}} key={1}>
+    <Link to='/user/profile/edit' style={{textDecoration: 'none'}} key={1}>
       <MenuItem
         primaryText='Account'
         style={menuItemStylefix}
@@ -17,7 +17,7 @@ export default function SidebarNav ({
       />
     </Link>,
     <MenuItem
-      primaryText='Sign out'
+      primaryText='Log out'
       style={menuItemStylefix}
       onTouchTap={onSidebarLogOutClick}
       key={2}

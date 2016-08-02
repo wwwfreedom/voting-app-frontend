@@ -28,7 +28,7 @@ export class UserSecurityContainer extends Component {
     if (nextProps.serverError.status !== this.props.serverError.status) {
       this.setState({open: nextProps.serverError.status, color: red300, message: nextProps.serverError.message})
     }
-    if (nextProps.successMessage !== '') {
+    if (nextProps.successMessage !== this.props.successMessage) {
       this.setState({open: true, color: green300, message: nextProps.successMessage})
     }
   }
