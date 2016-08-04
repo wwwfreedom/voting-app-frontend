@@ -114,7 +114,7 @@ export default function Signup ({
           <div className={sty.signup}>
             <div className={sty.signupText}>Already have an account?</div>
             <Link to='/login'>
-              <RaisedButton label='Login'labelPosition='before' backgroundColor={grey300} />
+              <RaisedButton label='Login' labelPosition='before' backgroundColor={grey300} />
             </Link>
           </div>
         </CardActions>

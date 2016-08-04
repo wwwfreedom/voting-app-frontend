@@ -6,6 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import {MenuItem} from 'material-ui/Menu'
 import DropDownMenu from 'material-ui/DropDownMenu'
+import NoteAddIcon from 'material-ui/svg-icons/action/note-add'
 
 const menuItemStylefix = {WebkitAppearance: 'none', cursor: 'pointer'}
 
@@ -27,12 +28,21 @@ export function Header ({
       onLeftIconButtonTouchTap={mobileMenuClick}
     >
     {
-    isAuth ? <DropDownMenu value={link} onChange={onDropDownMenuChange}
-      menuStyle={{padding: '0px'}} style={getStyle(width).navLinkButton}>
-      <MenuItem value={'/'} primaryText='Home' label={user.firstName} style={menuItemStylefix} />
-      <MenuItem value={'/user/profile/edit'} primaryText='Account' label='Account' style={menuItemStylefix} />
-      <MenuItem value={'logOut'} primaryText='Log out' label='Log out' style={menuItemStylefix} />
-    </DropDownMenu>
+    isAuth ? <div style={getStyle(width).navLinkButton}>
+      <Link to='/makePoll' key={1}>
+        <RaisedButton label='Poll' icon={<NoteAddIcon />} />
+      </Link>
+      <DropDownMenu
+        value={link}
+        onChange={onDropDownMenuChange}
+        menuStyle={{padding: '0px'}}
+        style={getStyle(width).navLinkButton}
+      >
+        <MenuItem value={'/'} primaryText='Home' label={user.firstName} style={menuItemStylefix} />
+        <MenuItem value={'/user/profile/edit'} primaryText='Account' label='Account' style={menuItemStylefix} />
+        <MenuItem value={'logOut'} primaryText='Log out' label='Log out' style={menuItemStylefix} />
+      </DropDownMenu>
+    </div>
     : <div style={getStyle(width).navLinkButton}>
       <Link to='/login'>
         <FlatButton label='Log in' style={getStyle(width).navLink} />

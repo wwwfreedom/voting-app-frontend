@@ -13,7 +13,7 @@ import sty from './Login.scss'
 import AuthButton from 'components/AuthButton'
 
 export default function Login ({
-  handleSubmit, email, password, loading, emailLogin, width, check, handleRememberMe, googleOauthUrl, githubOauthUrl
+  handleSubmit, email, password, loading, width, check, handleRememberMe, googleOauthUrl, githubOauthUrl
 }) {
   return (
     <form
@@ -92,7 +92,7 @@ export default function Login ({
           <div className={sty.signup}>
             <div className={sty.signupText}>Don't have an account?</div>
             <Link to='/signup'>
-              <RaisedButton label='Sign up'labelPosition='before' backgroundColor={grey300} />
+              <RaisedButton label='Sign up' labelPosition='before' backgroundColor={grey300} />
             </Link>
           </div>
         </CardActions>
@@ -106,7 +106,6 @@ Login.propTypes = {
   handleRememberMe: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   check: PropTypes.bool.isRequired,
-  emailLogin: PropTypes.func.isRequired,
   width: PropTypes.number.isRequired,
   email: PropTypes.object.isRequired,
   password: PropTypes.object.isRequired,
