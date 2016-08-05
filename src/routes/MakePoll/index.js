@@ -1,4 +1,5 @@
 import { injectReducer } from 'store/reducers'
+import { requireAuth } from 'utils/authHelper'
 
 export default (store) => ({
   path: 'MakePoll',
@@ -20,5 +21,9 @@ export default (store) => ({
 
     /* Webpack named bundle   */
     }, 'MakePoll')
+  },
+  onEnter (nextState, replace, callback) {
+    // make sure user is authenticated before route can be access
+    requireAuth(store, nextState, replace, callback)
   }
 })
