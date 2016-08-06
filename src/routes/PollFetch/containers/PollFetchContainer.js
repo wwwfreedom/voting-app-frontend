@@ -11,6 +11,7 @@ export class PollFetchContainer extends Component {
     pollFetch: PropTypes.func.isRequired,
     serverError: PropTypes.object.isRequired,
     loading: PropTypes.bool.isRequired,
+    hasVoted: PropTypes.bool.isRequired,
     successMessage: PropTypes.string.isRequired,
     poll: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
@@ -22,7 +23,8 @@ export class PollFetchContainer extends Component {
   state = {
     open: false,
     color: green300,
-    message: ''
+    message: '',
+    showVoteButtons: false
   };
 
   componentDidMount() {
@@ -43,19 +45,21 @@ export class PollFetchContainer extends Component {
 
   handleActionTouchTap = () => {
     const { serverError, dispatch } = this.props
-    if (serverError.status) {
+    // dispatch(resetError()) // don't know why if I activate this then setState below doesn't work
+    if (serverError.status &&
+        serverError.message.includes('Poll Not Found')) {
       this.setState({ open: false })
       dispatch(push('/'))
-    } else {
-      this.setState({ open: false })
     }
+    this.setState({ open: false })
   }
 
   handleRequestClose = (reason) => {
     const { serverError, dispatch } = this.props
     dispatch(resetError())
     if (reason === 'clickaway') {
-      if (serverError.status && serverError.message.includes('Network')) {
+      if (serverError.status &&
+        serverError.message.includes('Poll Not Found')) {
         this.setState({ open: false })
         return dispatch(push('/'))
       }
@@ -67,10 +71,15 @@ export class PollFetchContainer extends Component {
   handleOptionClick = (e) => {
     const { dispatch } = this.props
     dispatch(pollVote(e.currentTarget.value))
+    this.setState({showVoteButtons: false})
+  }
+
+  handleVoteClick = () => {
+    this.setState({showVoteButtons: !this.state.showVoteButtons})
   }
 
   render() {
-    const { loading, width, poll, currentUser } = this.props
+    const { loading, width, poll, currentUser, hasVoted } = this.props
     return <div>
       <PollFetch
         width={width}
@@ -78,6 +87,9 @@ export class PollFetchContainer extends Component {
         poll={poll}
         currentUser={currentUser}
         handleOptionClick={this.handleOptionClick}
+        hasVoted={hasVoted}
+        handleVoteClick={this.handleVoteClick}
+        showVoteButtons={this.state.showVoteButtons}
       />
       <SnackBarMod
         open={this.state.open}
@@ -96,7 +108,8 @@ const mapStateToProps = (state) => ({
   serverError: state.PollFetch.error,
   successMessage: state.PollFetch.successMessage,
   poll: state.PollFetch.poll,
-  currentUser: state.session.currentUser
+  currentUser: state.session.currentUser,
+  hasVoted: state.PollFetch.hasVoted
 })
 
 export default connect(mapStateToProps)(PollFetchContainer)

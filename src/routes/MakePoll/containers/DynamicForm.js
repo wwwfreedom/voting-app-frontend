@@ -18,12 +18,18 @@ class DynamicForm extends Component {
   }
 }
 
+// todo check for length limit to 64 characters for options
 function validate(formProps) {
   const errors = {}
-  Object.keys(formProps).map((name) => {
+  Object.keys(formProps).map((name, index) => {
     if (!formProps[name]) {
       errors[name] = `${capitalizeFirstLetter(name)} can't not be blank.`
     }
+    // if (formProps[name] !== 'question') {
+    //   if (formProps[name].length > 64) {
+    //     errors[name] = 'Max length allow'
+    //   }
+    // }
   })
 
   return errors

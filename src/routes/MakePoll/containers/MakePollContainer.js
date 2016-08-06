@@ -6,6 +6,7 @@ import { red300, green300 } from 'material-ui/styles/colors'
 import { makePoll } from '../modules/MakePoll'
 import { push } from 'react-router-redux'
 import { reset } from 'redux-form'
+
 // lesson: this externall css is making snack bar styling flicker in dev, have to check back to see if it happens in when deploy to production
 import sty from './MakePollContainer.scss'
 
@@ -40,6 +41,7 @@ export class MakePollContainer extends Component {
     }
   }
 
+  // need to fix the minor bug of double tap to adding fields and delele the last option and adding another one immediatedly.
   handleAdd = (e) => {
     const { count, fields } = this.state
     this.setState({
@@ -68,8 +70,12 @@ export class MakePollContainer extends Component {
   }
 
   handleRequestClose = (reason) => {
+    const { serverError } = this.props
     if (reason === 'clickaway') {
-      this.props.dispatch(reset('MakePoll'))
+      // if there is error and it's not a network error then reset the form
+      if (serverError.status && !serverError.message.includes('Network')) {
+        this.props.dispatch(reset('MakePoll'))
+      }
     }
     this.setState({
       open: false

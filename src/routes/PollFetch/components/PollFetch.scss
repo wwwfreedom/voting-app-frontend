@@ -14,11 +14,13 @@
 .card {
   padding-bottom: 0.75em;
   width: 100% !important;
+  margin: 1.5em auto;
 }
 
 .question {
   text-align: center;
 }
+
 .optionDiv {
   margin: 0em 8px 0em 8px !important;
   span {
@@ -30,8 +32,39 @@
   margin: 0.5em 0;
 }
 
+.voteButton {
+  position: relative;
+  text-align: center !important;
+}
+
 .cardActions {
-  margin: 1em auto;
+  margin: 1em 8px 1em 8px !important;
+}
+
+.voteStats {
+  display: flex;
+  flex-flow: column nowrap;
+  text-align: center;
+  margin: 0em 8px 0em 8px !important;
+  h4 {
+    margin: 0.5em;
+  }
+}
+
+.chipDiv {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin-top: 0.5em;
+}
+
+.chip {
+  margin: 0.25em 0.5em !important;
+  span {
+    max-width: 300px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 }
 
 .actionButtons {
