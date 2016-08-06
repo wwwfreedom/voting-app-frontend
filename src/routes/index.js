@@ -10,6 +10,7 @@ import GoogleOauthCallbackRoute from './GoogleOauth'
 import NotFoundRoute from './NotFound'
 import UserRoute from './User'
 import MakePollRoute from './MakePoll/'
+import PollFetchRoute from './PollFetch'
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
@@ -25,9 +26,10 @@ export const createRoutes = (store) => ({
     ResetPasswordRoute(store),
     GoogleOauthCallbackRoute(store),
     GithubOauthCallbackRoute(store),
-    MakePollRoute(store),
-    UserRoute(store),
-    NotFoundRoute(store)
+    PollFetchRoute(store), // /poll/:id
+    MakePollRoute(store), // /makePoll
+    UserRoute(store), // user
+    NotFoundRoute(store) // /*
   ]
 })
 

@@ -2,6 +2,7 @@ import axios from 'axios'
 import { push } from 'react-router-redux'
 import { apiUrl } from 'globalVar.js'
 import errorHandler from 'utils/errorHandler'
+import { capitalizeFirstLetter } from 'utils/general'
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -28,11 +29,11 @@ export const makePoll = (fields) => (dispatch, getState) => {
   if (getState().session.authenticated) {
     dispatch(makePollStart())
     const options = Object.keys(fields).map((name) => {
-      if (name.includes('option')) return { name: fields[name] }
+      if (name.includes('option')) return { name: capitalizeFirstLetter(fields[name]) }
     })
     .filter((option) => option !== undefined)
     const payload = {
-      question: fields.question,
+      question: capitalizeFirstLetter(fields.question),
       options,
       createdBy: getState().session.currentUser._id
     }
