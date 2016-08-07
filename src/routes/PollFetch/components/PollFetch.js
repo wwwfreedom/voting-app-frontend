@@ -52,7 +52,7 @@ export const PollFetch = ({width, loading, poll, currentUser, handleOptionClick,
           key={option._id}
           style={{backgroundColor: colorArray[index]}}
           >
-          {`${option.name} (${abbreviate(option.name)}): ${option.votes - 1}`}</Chip>
+          {`${option.name} (${abbreviate(option.name)}): ${option.votes}`}</Chip>
       })}
     </div>
   </div>
@@ -65,7 +65,7 @@ export const PollFetch = ({width, loading, poll, currentUser, handleOptionClick,
     style={{
       data: {
         stroke: 'black',
-        strokeWidth: 0.3
+        strokeWidth: 0.3,
       }
     }}
     data={data(poll.options)}
@@ -93,7 +93,7 @@ export const PollFetch = ({width, loading, poll, currentUser, handleOptionClick,
         subtitle={`Asked by: ${fullName}`}
         className={sty.question}
       />
-      {pieChart}
+      {poll.voters.length === 0 ? '' : pieChart}
       <CardText className={sty.voteButton}>
         {loading ? spinner : voteButton}
       </CardText>

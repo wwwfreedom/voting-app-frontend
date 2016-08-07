@@ -3,6 +3,7 @@ import { push } from 'react-router-redux'
 import { apiUrl } from 'globalVar.js'
 import errorHandler from 'utils/errorHandler'
 import { capitalizeFirstLetter } from 'utils/general'
+import { reset } from 'redux-form'
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -43,6 +44,7 @@ export const makePoll = (fields) => (dispatch, getState) => {
     )
     .then((response) => {
       dispatch(makePollFinish(response.data.message, response.data.poll))
+      dispatch(reset('MakePoll'))
     })
     .catch((error) => errorHandler(error, dispatch, makePollError))
   } else {
