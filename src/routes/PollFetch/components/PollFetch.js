@@ -4,12 +4,10 @@ import RefreshIndicator from 'material-ui/RefreshIndicator'
 import RaisedButton from 'material-ui/RaisedButton'
 import {red200, green200, yellow200, cyan200, blue200, indigo300, teal300, lime600, lightgreen200, orange200, grey300, brown300} from 'material-ui/styles/colors'
 import { small } from 'utils/windowsize.js'
-import { VictoryPie } from 'victory'
 import Chip from 'material-ui/Chip'
-import { abbreviate } from 'utils/general'
+import { abbreviate, capitalizeFirstLetter } from 'utils/general'
 import sty from './PollFetch.scss'
-import { capitalizeFirstLetter } from 'utils/general'
-
+import PieChart from './PieChart.js'
 export const PollFetch = ({width, loading, poll, currentUser, handleOptionClick, hasVoted, handleVoteClick, showVoteButtons}) => {
   const fullName = capitalizeFirstLetter(`${poll.createdBy.firstName} ${poll.createdBy.lastName}`)
 
@@ -57,26 +55,11 @@ export const PollFetch = ({width, loading, poll, currentUser, handleOptionClick,
     </div>
   </div>
 
-  const data = (options) => options.map((option) => {
-    return {x: abbreviate(option.name), y: option.votes}
+  const data = poll.options.map((option) => {
+    return {name: abbreviate(option.name), value: option.votes}
   })
 
-  const pieChart = <VictoryPie
-    style={{
-      data: {
-        stroke: 'black',
-        strokeWidth: 0.3,
-      }
-    }}
-    data={data(poll.options)}
-    colorScale={colorArray}
-    animate={{
-      duration: 1000,
-      onEnter: {
-        duration: 500
-      }
-    }}
-  />
+  const chart = <PieChart data={data} colorArray={colorArray} />
 
   const voteButton = <RaisedButton
     className={sty.voteButton}
@@ -93,7 +76,7 @@ export const PollFetch = ({width, loading, poll, currentUser, handleOptionClick,
         subtitle={`Asked by: ${fullName}`}
         className={sty.question}
       />
-      {poll.voters.length === 0 ? '' : pieChart}
+      {poll.voters.length === 0 ? '' : chart}
       <CardText className={sty.voteButton}>
         {loading ? spinner : voteButton}
       </CardText>

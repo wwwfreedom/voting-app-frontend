@@ -117,6 +117,7 @@
     "react-router-redux": "^4.0.0",
     "react-sizeme": "^2.1.2",
     "react-tap-event-plugin": "^1.0.0",
+    "recharts": "^0.13.0",
     "redux": "^3.0.0",
     "redux-form": "^5.3.1",
     "redux-thunk": "^2.0.0",
@@ -125,7 +126,6 @@
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.6",
     "validator": "^5.5.0",
-    "victory": "^0.10.4",
     "webpack": "^1.12.14",
     "yargs": "^4.0.0"
   },

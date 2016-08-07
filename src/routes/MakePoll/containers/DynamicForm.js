@@ -21,7 +21,6 @@ class DynamicForm extends Component {
 // todo check for length limit to 64 characters for options
 function validate(formProps) {
   const errors = {}
-  console.log(formProps)
   Object.keys(formProps).map((name, index) => {
     if (!formProps[name]) {
       errors[name] = `${capitalizeFirstLetter(name)} can't not be blank.`
