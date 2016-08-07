@@ -14,6 +14,7 @@ export const POLL_VOTE_START = 'POLL_VOTE_START'
 export const POLL_VOTE_FINISH = 'POLL_VOTE_FINISH'
 export const POLL_VOTE_ERROR = 'POLL_VOTE_ERROR'
 export const HAS_VOTED = 'HAS_VOTED'
+export const RESET_STATE = 'RESET_STATE'
 
 // ------------------------------------
 // Actions
@@ -27,6 +28,7 @@ export const pollFetchStart = () => ({type: POLL_FETCH_START})
 export const pollFetchFinish = (data) => ({type: POLL_FETCH_FINISH, payload: data})
 export const pollFetchError = (error) => ({type: POLL_FETCH_ERROR, payload: error})
 export const hasVoted = () => ({type: HAS_VOTED})
+export const resetToInitialState = () => ({type: RESET_STATE})
 // ------------------------------------
 // Thunk Actions
 // ------------------------------------
@@ -97,6 +99,35 @@ export const resetError = () => (dispatch) => {
   dispatch(pollVoteError({message: '', status: false}))
 }
 
+const initialState = {
+  successMessage: '',
+  loading: false,
+  hasVoted: false,
+  poll: {
+    _id: '',
+    voters: [],
+    updatedAt: '',
+    createdAt: '',
+    question: '',
+    createdBy: {
+      _id: '',
+      firstName: '',
+      lastName: ''
+    },
+    options: [
+      {
+        name: '',
+        _id: '',
+        votes: 0
+      }
+    ]
+  },
+  error: {
+    message: '',
+    status: false
+  }
+}
+
 // ------------------------------------
 // Action Handlers
 // ------------------------------------
@@ -136,40 +167,13 @@ const ACTION_HANDLERS = {
   [HAS_VOTED]: (state) => ({
     ...state,
     hasVoted: true
-  })
+  }),
+  [RESET_STATE]: (state) => initialState
 }
 
 // ------------------------------------
 // Reducer
 // ------------------------------------
-const initialState = {
-  successMessage: '',
-  loading: false,
-  hasVoted: false,
-  poll: {
-    _id: '',
-    voters: [],
-    updatedAt: '',
-    createdAt: '',
-    question: '',
-    createdBy: {
-      _id: '',
-      firstName: '',
-      lastName: ''
-    },
-    options: [
-      {
-        name: '',
-        _id: '',
-        votes: 0
-      }
-    ]
-  },
-  error: {
-    message: '',
-    status: false
-  }
-}
 
 export default function PollFetchReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]

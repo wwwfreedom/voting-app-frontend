@@ -1,4 +1,5 @@
 import { injectReducer } from 'store/reducers'
+import { resetToInitialState } from './modules/PollFetch'
 
 export default (store) => ({
   path: 'poll/:id',
@@ -20,5 +21,10 @@ export default (store) => ({
 
     /* Webpack named bundle   */
     }, 'PollFetch')
+  },
+  onEnter (nextState, replace, callback) {
+    // make sure user is authenticated before route can be access
+    store.dispatch(resetToInitialState())
+    callback()
   }
 })
