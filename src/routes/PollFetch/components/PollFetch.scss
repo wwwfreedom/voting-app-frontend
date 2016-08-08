@@ -32,7 +32,7 @@
   margin: 0.5em 0;
 }
 
-.voteButton {
+.actionDiv {
   position: relative;
   text-align: center !important;
 }
@@ -65,12 +65,6 @@
     text-overflow: ellipsis;
     overflow: hidden;
   }
-}
-
-.actionButtons {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-around;
 }
 
 .input {

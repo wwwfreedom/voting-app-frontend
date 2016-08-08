@@ -8,7 +8,6 @@ import PollFetch from '../components/PollFetch'
 
 export class PollFetchContainer extends Component {
   static propTypes = {
-    pollFetch: PropTypes.func.isRequired,
     serverError: PropTypes.object.isRequired,
     loading: PropTypes.bool.isRequired,
     hasVoted: PropTypes.bool.isRequired,
@@ -109,7 +108,7 @@ const mapStateToProps = (state) => ({
   successMessage: state.PollFetch.successMessage,
   poll: state.PollFetch.poll,
   currentUser: state.session.currentUser,
-  hasVoted: state.PollFetch.hasVoted
+  hasVoted: state.PollFetch.poll.hasVoted
 })
 
 export default connect(mapStateToProps)(PollFetchContainer)

@@ -14,7 +14,7 @@ export const MakePoll = ({fields, handleSubmit, labels, width, loading, handleAd
   <form className={sty.container} onSubmit={handleSubmit}>
     <Card className={sty.card}>
       <CardText expandable={false} className={sty.formBody}>
-        {Object.keys(fields).map(name => {
+        {Object.keys(fields).map((name, index) => {
           const field = fields[name]
           if (name === 'question') {
             return <Textfield
@@ -39,11 +39,12 @@ export const MakePoll = ({fields, handleSubmit, labels, width, loading, handleAd
                 tooltip={`Delete ${labels[name]}`}
                 onTouchTap={onOptionDelete}
                 tooltipPosition='top-center'
+                key={index}
                 touch
                 value={name}
                 style={{marginTop: 'auto'}}
               >
-                <DeleteIcon />
+                <DeleteIcon key={index} />
               </IconButton>
             </div>
           }
@@ -55,6 +56,7 @@ export const MakePoll = ({fields, handleSubmit, labels, width, loading, handleAd
             size={50}
             left={width < small ? 135 : 221}
             top={0}
+            key={3}
             loadingColor={'#FF9800'}
             status='loading'
           />
@@ -63,6 +65,7 @@ export const MakePoll = ({fields, handleSubmit, labels, width, loading, handleAd
           <RaisedButton
             label='Create Form'
             labelPosition='before'
+            key={1}
             primary
           >
             <input type='submit' className={sty.input} />
@@ -71,6 +74,7 @@ export const MakePoll = ({fields, handleSubmit, labels, width, loading, handleAd
             label='More Option'
             onTouchTap={handleAdd}
             secondary
+            key={2}
           />
         </div>
       }

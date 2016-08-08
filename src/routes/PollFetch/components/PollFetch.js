@@ -8,6 +8,7 @@ import Chip from 'material-ui/Chip'
 import { abbreviate, capitalizeFirstLetter } from 'utils/general'
 import sty from './PollFetch.scss'
 import PieChart from './PieChart.js'
+import SocialShareButtons from './SocialShareButtons'
 export const PollFetch = ({width, loading, poll, currentUser, handleOptionClick, hasVoted, handleVoteClick, showVoteButtons}) => {
   const fullName = capitalizeFirstLetter(`${poll.createdBy.firstName} ${poll.createdBy.lastName}`)
 
@@ -62,12 +63,22 @@ export const PollFetch = ({width, loading, poll, currentUser, handleOptionClick,
   const chart = <PieChart data={data} colorArray={colorArray} />
 
   const voteButton = <RaisedButton
-    className={sty.voteButton}
     label={showVoteButtons ? 'See vote stats' : 'Click to vote'}
     labelPosition='before'
-    backgroundColor={grey300}
+    primary
     onTouchTap={handleVoteClick}
   />
+
+  const spinnerOrVoteButtonOrShareButton = () => {
+    if (loading) return spinner
+    if (hasVoted) {
+      return <div className={sty.share}>
+        <h4>You have already voted. Share the result with your friends.</h4>
+        <SocialShareButtons question={poll.question} />
+      </div>
+    }
+    return voteButton
+  }
 
   return <div className={sty.container}>
     <Card className={sty.card}>
@@ -77,8 +88,8 @@ export const PollFetch = ({width, loading, poll, currentUser, handleOptionClick,
         className={sty.question}
       />
       {poll.voters.length === 0 ? '' : chart}
-      <CardText className={sty.voteButton}>
-        {loading ? spinner : voteButton}
+      <CardText className={sty.actionDiv}>
+        {spinnerOrVoteButtonOrShareButton()}
       </CardText>
       <CardActions className={sty.cardActions}>
         {showVoteButtons ? options : voteStats}

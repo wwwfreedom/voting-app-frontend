@@ -16,7 +16,7 @@ export class MakePollContainer extends Component {
     serverError: PropTypes.object.isRequired,
     successMessage: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
-    width: PropTypes.func.isRequired,
+    width: PropTypes.number.isRequired,
     poll: PropTypes.object.isRequired
   };
 

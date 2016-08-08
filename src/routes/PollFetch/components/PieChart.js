@@ -41,9 +41,8 @@ export class PieChartWrapper extends Component {
 
   componentDidMount() {
     // set the index to the highest value
-    const maxValue = (number1, number2) => Math.max(number1, number2)
     const value = this.props.data.map((obj) => obj.value)
-      .reduce(maxValue, 0)
+      .reduce((bestIndexSoFar, currentlyTestedValue, currentlyTestedIndex, array) => currentlyTestedValue > array[bestIndexSoFar] ? currentlyTestedIndex : bestIndexSoFar, 0)
     this.setState({activeIndex: value})
   }
 
@@ -56,12 +55,12 @@ export class PieChartWrapper extends Component {
           activeIndex={this.state.activeIndex}
           activeShape={renderActiveShape}
           data={this.props.data}
-          paddingAngle={1}
+          paddingAngle={0.5}
           innerRadius={80}
           style={{cursor: 'pointer'}}
         >
           {this.props.data.map((entry, index) => {
-            return <Cell fill={this.props.colorArray[index]} />
+            return <Cell key={index} fill={this.props.colorArray[index]} />
           })}
         </Pie>
       </PieChart>
