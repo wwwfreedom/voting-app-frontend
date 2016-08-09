@@ -39,6 +39,7 @@ export function Header ({
         style={getStyle(width).navLinkButton}
       >
         <MenuItem value={'/'} primaryText='Home' label={user.firstName} style={menuItemStylefix} />
+        <MenuItem value={`/users/profile/${user._id}`} primaryText='My Polls' label='My Polls' style={menuItemStylefix} />
         <MenuItem value={'/user/profile/edit'} primaryText='Account' label='Account' style={menuItemStylefix} />
         <MenuItem value={'logOut'} primaryText='Log out' label='Log out' style={menuItemStylefix} />
       </DropDownMenu>

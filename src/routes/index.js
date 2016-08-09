@@ -9,6 +9,7 @@ import GithubOauthCallbackRoute from './GithubOauth'
 import GoogleOauthCallbackRoute from './GoogleOauth'
 import NotFoundRoute from './NotFound'
 import UserRoute from './User'
+import UsersUnAuthRoute from './Users'
 import MakePollRoute from './MakePoll/'
 import PollFetchRoute from './PollFetch'
 
@@ -29,6 +30,7 @@ export const createRoutes = (store) => ({
     PollFetchRoute(store), // /poll/:id
     MakePollRoute(store), // /makePoll
     UserRoute(store), // user
+    UsersUnAuthRoute(store), // users
     NotFoundRoute(store) // /*
   ]
 })

@@ -1,8 +1,7 @@
 import { injectReducer } from 'store/reducers'
-import { requireAuth } from 'utils/authHelper'
 
 export default (store) => ({
-  path: 'security',
+  path: 'profile/:id',
   /*  Async getComponent is only invoked when route matches   */
   getComponent (nextState, cb) {
     /*  Webpack - use 'require.ensure' to create a split point
@@ -10,20 +9,16 @@ export default (store) => ({
     require.ensure([], (require) => {
       /*  Webpack - use require callback to define
           dependencies for bundling   */
-      const Security = require('./containers/SecurityContainer').default
-      const reducer = require('./modules/Security').default
+      const Profile = require('./containers/ProfileContainer').default
+      const reducer = require('./modules/Profile').default
 
       /*  Add the reducer to the store on key 'counter'  */
-      injectReducer(store, { key: 'Security', reducer })
+      injectReducer(store, { key: 'Profile', reducer })
 
       /*  Return getComponent   */
-      cb(null, Security)
+      cb(null, Profile)
 
     /* Webpack named bundle   */
-    }, 'Security')
-  },
-  onEnter (nextState, replace, callback) {
-    // make sure user is authenticated before route can be access
-    requireAuth(store, nextState, replace, callback)
+    }, 'Profile')
   }
 })

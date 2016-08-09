@@ -7,13 +7,22 @@ import AccountBox from 'material-ui/svg-icons/action/account-box'
 import Home from 'material-ui/svg-icons/action/home'
 import ArrowIn from 'material-ui/svg-icons/action/input'
 import SignUpIcon from 'material-ui/svg-icons/action/open-in-browser'
+import PollIcon from 'material-ui/svg-icons/social/poll'
 
 const menuItemStylefix = {WebkitAppearance: 'none', cursor: 'pointer'}
 
 export default function SidebarNav ({
-  docked, onSidebarLinkClick, open, onSidebarActivate, isAuth, onSidebarLogOutClick
+  docked, onSidebarLinkClick, open, onSidebarActivate, isAuth, onSidebarLogOutClick, user
 }) {
   const authenticatedLinks = [
+    <Link to={`/users/profile/${user._id}`} style={{textDecoration: 'none'}} key={1}>
+      <MenuItem
+        primaryText='My Polls'
+        style={menuItemStylefix}
+        onTouchTap={onSidebarLinkClick}
+        rightIcon={<PollIcon />}
+      />
+    </Link>,
     <Link to='/user/profile/edit' style={{textDecoration: 'none'}} key={2}>
       <MenuItem
         primaryText='Account'
@@ -83,7 +92,8 @@ SidebarNav.propTypes = {
   onSidebarLogOutClick: PropTypes.func.isRequired,
   onSidebarActivate: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
-  isAuth: PropTypes.bool.isRequired
+  isAuth: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired
 }
 
 export default SidebarNav
