@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { apiUrl } from 'globalVar.js'
 import errorHandler from 'utils/errorHandler'
+
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -9,14 +10,21 @@ export const PROFILE_FETCH_START = 'PROFILE_FETCH_START'
 export const PROFILE_FETCH_FINISH = 'PROFILE_FETCH_FINISH'
 export const PROFILE_FETCH_ERROR = 'PROFILE_FETCH_ERROR'
 export const PROFILE_IS_OWNER = 'PROFILE_IS_OWNER'
+export const POLL_DELETE_START = 'POLL_DELETE_START'
+export const POLL_DELETE_FINISH = 'POLL_DELETE_FINISH'
+export const POLL_DELETE_ERROR = 'POLL_DELETE_ERROR'
 // ------------------------------------
 // Actions
 // ------------------------------------
 
+export const pollDeleteStart = () => ({type: POLL_DELETE_START})
+export const pollDeleteFinish = (data) => ({type: POLL_DELETE_FINISH, payload: data})
+export const pollDeleteError = (error) => ({type: POLL_DELETE_ERROR, payload: error})
+export const profileIsOwner = (value) => ({type: PROFILE_IS_OWNER, payload: value})
+
 export const profileFetchStart = () => ({type: PROFILE_FETCH_START})
 export const profileFetchFinish = (data) => ({type: PROFILE_FETCH_FINISH, payload: data})
 export const profileFetchError = (error) => ({type: PROFILE_FETCH_ERROR, payload: error})
-export const profileIsOwner = (value) => ({type: PROFILE_IS_OWNER, payload: value})
 // ------------------------------------
 // Thunk Actions
 // ------------------------------------
@@ -24,21 +32,82 @@ export const profileIsOwner = (value) => ({type: PROFILE_IS_OWNER, payload: valu
 export const profileFetch = (userId) => (dispatch, getState) => {
   const {currentUser, authenticated} = getState().session
   if (authenticated) {
-    console.log(currentUser._id)
-    if (currentUser._id === userId) dispatch(profileIsOwner(true))
+    if (currentUser._id === userId) {
+      dispatch(profileIsOwner(true))
+    } else {
+      dispatch(profileIsOwner(false))
+    }
   }
   dispatch(profileFetchStart())
   axios.get(`${apiUrl}/user/profile/${userId}`)
   .then((response) => {
-    dispatch(profileFetchFinish(response.data))
+    if (response.data._id) {
+      return dispatch(profileFetchFinish({...response.data, polls: []}))
+    }
+    return dispatch(profileFetchFinish({
+      _id: response.data[0].createdBy._id,
+      firstName: response.data[0].createdBy.firstName,
+      lastName: response.data[0].createdBy.lastName,
+      polls: response.data
+    }))
   })
   .catch((error) => errorHandler(error, dispatch, profileFetchError))
+}
+
+export const pollDelete = (userId, pollId) => (dispatch, getState) => {
+  const {currentUser, authenticated} = getState().session
+  dispatch(pollDeleteStart())
+  if (authenticated && currentUser._id === userId) {
+    axios.delete(`${apiUrl}/poll/${pollId}`,
+      {headers: { authorization: localStorage.getItem('token') }}
+    )
+    .then((response) => {
+      console.log(response.data)
+      dispatch(pollDeleteFinish(response.data.poll._id))
+    })
+    .catch((error) => errorHandler(error, dispatch, pollDeleteError))
+  }
 }
 
 // ------------------------------------
 // Action Handlers
 // ------------------------------------
+
 const ACTION_HANDLERS = {
+  [POLL_DELETE_START]: (state) => ({
+    ...state,
+    loading: {type: 'delete', status: true},
+    error: { message: '', status: false },
+    successMessage: ''
+  }),
+  [POLL_DELETE_FINISH]: (state, action) => {
+    const polls = state.polls.filter((poll) => poll._id !== action.payload)
+    if (polls.length === 0) {
+      return {
+        ...state,
+        loading: {type: '', status: false},
+        successMessage: 'The poll was deleted',
+        polls: []
+      }
+    } else {
+      return {
+        ...state,
+        loading: {type: '', status: false},
+        successMessage: 'The poll was deleted',
+        polls: polls
+      }
+    }
+  },
+  [POLL_DELETE_ERROR]: (state, action) => ({
+    ...state,
+    error: action.payload,
+    loading: {type: '', status: false},
+    successMessage: ''
+  }),
+  [PROFILE_IS_OWNER]: (state, action) => ({
+    ...state,
+    isOwner: action.payload
+  }),
   [PROFILE_FETCH_START]: (state) => ({
     ...state,
     loading: {type: 'fetch', status: true},
@@ -47,16 +116,15 @@ const ACTION_HANDLERS = {
   [PROFILE_FETCH_FINISH]: (state, action) => ({
     ...state,
     loading: {type: '', status: false},
-    polls: action.payload
+    _id: action.payload._id,
+    firstName: action.payload.firstName,
+    lastName: action.payload.lastName,
+    polls: action.payload.polls
   }),
   [PROFILE_FETCH_ERROR]: (state, action) => ({
     ...state,
     error: action.payload,
     loading: {type: '', status: false}
-  }),
-  [PROFILE_IS_OWNER]: (state, action) => ({
-    ...state,
-    isOwner: action.payload
   })
 }
 
@@ -68,24 +136,17 @@ const initialState = {
     type: '',
     status: false
   },
+  successMessage: '',
   isOwner: false,
-  polls: [
-    {
-      question: '',
-      voters: [],
-      createdBy: {
-        _id: '',
-        firstName: '',
-        lastName: ''
-      }
-    }
-  ],
+  firstName: '',
+  lastName: '',
+  _id: '',
+  polls: [],
   error: {
     message: '',
     status: false
   }
 }
-
 export default function ProfileReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
 

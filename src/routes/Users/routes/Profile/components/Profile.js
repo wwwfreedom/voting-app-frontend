@@ -8,6 +8,7 @@ import IconButton from 'material-ui/IconButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import sty from './Profile.scss'
 import moment from 'moment'
+import {Link} from 'react-router'
 
 export const Profile = ({firstName, lastName, polls, width, loading, onPollDelete, isOwner}) => {
   const rightDeleteIcon = (value) => (
@@ -25,20 +26,22 @@ export const Profile = ({firstName, lastName, polls, width, loading, onPollDelet
 
   const pollListItems = polls.map((poll, index) => {
     const totalVotes = poll.voters.length
-    return <ListItem
-      key={index}
-      // slight edge case when the delete button is shown to polls owner if they logout and press back button
-      rightIconButton={isOwner ? rightDeleteIcon(poll._id) : ''}
-      primaryText={poll.question}
-      style={{borderBottom: `0.3px solid ${blue50}`}}
-      secondaryText={
-        <p>
-          <span style={{color: darkBlack}}>{`Total votes: ${totalVotes}`}</span><br />
-          {`Created ${moment(poll.createdAt).fromNow()}`}
-        </p>
-      }
-      secondaryTextLines={2}
-    />
+    return <Link to={`/poll/${poll._id}`} style={{textDecoration: 'none'}}>
+      <ListItem
+        key={index}
+        // slight edge case when the delete button is shown to polls owner if they logout and press back button
+        rightIconButton={isOwner ? rightDeleteIcon(poll._id) : ''}
+        primaryText={poll.question}
+        style={{borderBottom: `0.3px solid ${blue50}`}}
+        secondaryText={
+          <p>
+            <span style={{color: darkBlack}}>{`Total votes: ${totalVotes}`}</span><br />
+            {`Created ${moment(poll.createdAt).fromNow()}`}
+          </p>
+        }
+        secondaryTextLines={2}
+      />
+    </Link>
   })
 
   const spinner = <div className={sty.loading}>
@@ -54,12 +57,15 @@ export const Profile = ({firstName, lastName, polls, width, loading, onPollDelet
   return <div className={sty.container}>
     <Card className={sty.card}>
       <CardTitle
-        title={polls[0].createdBy._id === '' ? `${firstName} ${lastName} currently doesn't have any polls` : `Polls created by: ${firstName} ${lastName}`}
+        title={polls.length === 0 ? `${firstName} ${lastName} currently doesn't have any polls` : `Polls created by: ${firstName} ${lastName}`}
         className={sty.question}
         subtitle={`Total Polls: ${polls.length}`}
       />
-      <CardText className={sty.actionDiv}>
-        {loading.type === 'fetch' && loading.status ? spinner : <List>{pollListItems}</List>}
+      <CardText
+        className={sty.actionDiv}
+        style={isOwner ? '' : {textAlign: 'center'}}
+      >
+        {loading.type === 'fetch' || loading.type === 'delete' && loading.status ? spinner : <List>{pollListItems}</List>}
       </CardText>
     </Card>
   </div>
@@ -72,7 +78,7 @@ Profile.propTypes = {
   width: PropTypes.number.isRequired,
   loading: PropTypes.object.isRequired,
   onPollDelete: PropTypes.func.isRequired,
-  isOwner: PropTypes.func.isRequired
+  isOwner: PropTypes.bool.isRequired
 }
 
 export default Profile

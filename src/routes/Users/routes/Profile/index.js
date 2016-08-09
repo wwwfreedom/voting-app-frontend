@@ -1,4 +1,5 @@
 import { injectReducer } from 'store/reducers'
+import { profileFetch } from './modules/Profile'
 
 export default (store) => ({
   path: 'profile/:id',
@@ -20,5 +21,12 @@ export default (store) => ({
 
     /* Webpack named bundle   */
     }, 'Profile')
+  },
+  onEnter (nextState, replace, callback) {
+    // check back in production so see if this can be remove, for some reason profile Fetch is getting call first before all the other session action. I think it's because of the code splitting prioritising this first.
+    setTimeout(function() {
+      store.dispatch(profileFetch(nextState.params.id))
+    }, 150)
+    callback()
   }
 })
