@@ -19,7 +19,7 @@ import PollFetchRoute from './PollFetch'
 export const createRoutes = (store) => ({
   path: '/',
   component: CoreLayout,
-  indexRoute: Home,
+  indexRoute: Home(store),
   childRoutes: [
     LoginRoute(store),
     SignupRoute(store),
