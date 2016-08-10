@@ -7,6 +7,7 @@ import FlatButton from 'material-ui/FlatButton'
 import {MenuItem} from 'material-ui/Menu'
 import DropDownMenu from 'material-ui/DropDownMenu'
 import NoteAddIcon from 'material-ui/svg-icons/action/note-add'
+import FloatingActionButton from 'material-ui/FloatingActionButton'
 
 const menuItemStylefix = {WebkitAppearance: 'none', cursor: 'pointer'}
 
@@ -21,12 +22,19 @@ export function Header ({
 }) {
   return (
     <AppBar
-      title={<IndexLink to='/' style={{color: 'white', textDecoration: 'none'}} onClick={handleTitleClick}>Let's Vote</IndexLink>}
+      title={<IndexLink to='/' style={{color: 'white', textDecoration: 'none'}} onClick={handleTitleClick}>PollWise</IndexLink>}
       showMenuIconButton={width < small}
       titleStyle={getStyle(width).appBarTitle}
       style={getStyle(width).appBar}
       onLeftIconButtonTouchTap={mobileMenuClick}
     >
+    {isAuth && width <= small ? <Link to='/makePoll'><FloatingActionButton style={{
+      position: 'absolute',
+      top: '35px',
+      right: '30px'
+    }}>
+      <NoteAddIcon />
+    </FloatingActionButton></Link> : ''}
     {
     isAuth ? <div style={getStyle(width).navLinkButton}>
       <Link to='/makePoll' key={1}>
