@@ -60,7 +60,7 @@ export const Home = ({polls, width, loading, onMakePollClick}) => {
     <Card className={sty.card}>
       <div className={sty.appIconDiv}>
         <AppIcon className={sty.appIcon} />
-      </div> 
+      </div>
       <CardTitle
         className={sty.question}
         title='Create and share your own polls'

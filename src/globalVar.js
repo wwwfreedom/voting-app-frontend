@@ -9,12 +9,13 @@ export const googleOauthParams = {
     response_type: 'code'
   }
 }
+
 export const githubOauthParams = {
-  url: 'http://localhost:3090/oauth/github',
+  url: `${apiUrl}/oauth/github`,
   authorizationUrl: 'https://github.com/login/oauth/authorize',
   params: {
     client_id: '1a2a27518c8044d4ac47',
-    redirect_uri: 'http://localhost:3000/oauth/github/callback',
+    redirect_uri: 'https://wwwfreedom.github.io/voting-app-frontend/#/oauth/github/callback',
     scope: 'user:email profile repo',
     response_type: 'code'
   }
