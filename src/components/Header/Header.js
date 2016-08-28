@@ -20,46 +20,74 @@ export function Header ({
   width,
   handleTitleClick
 }) {
-  return (
-    <AppBar
-      title={<IndexLink to='/' style={{color: 'white', textDecoration: 'none'}} onClick={handleTitleClick}>PollWise</IndexLink>}
-      showMenuIconButton={width < small}
-      titleStyle={getStyle(width).appBarTitle}
-      style={getStyle(width).appBar}
-      onLeftIconButtonTouchTap={mobileMenuClick}
-    >
-    {isAuth && width <= small ? <Link to='/makePoll'><FloatingActionButton style={{
+  const indexLink = (
+    <IndexLink
+      to='/'
+      style={{color: 'white', textDecoration: 'none'}}
+      onClick={handleTitleClick}>
+      Pollwise
+    </IndexLink>
+  )
+
+  const floatingNoteAddIcon = (
+    <FloatingActionButton style={{
       position: 'absolute',
       top: '35px',
       right: '30px'
     }}>
       <NoteAddIcon />
-    </FloatingActionButton></Link> : ''}
-    {
-    isAuth ? <div style={getStyle(width).navLinkButton}>
+    </FloatingActionButton>
+  )
+
+  const dropDownMenuItems = (
+    <DropDownMenu
+      value={link}
+      onChange={onDropDownMenuChange}
+      menuStyle={{padding: '0px'}}
+      style={getStyle(width).navLinkButton}
+    >
+      <MenuItem
+        value={'/'} primaryText='Home' label={user.firstName} style={menuItemStylefix} />
+      <MenuItem
+        value={`/users/profile/${user._id}`}
+        primaryText='My Polls' label='My Polls' style={menuItemStylefix} />
+      <MenuItem value={'/user/profile/edit'}
+        primaryText='Account' label='Account' style={menuItemStylefix} />
+      <MenuItem value={'logOut'}
+        primaryText='Log out' label='Log out' style={menuItemStylefix} />
+    </DropDownMenu>
+  )
+
+  const authenticatedNavLinkButtons = (
+    <div style={getStyle(width).navLinkButton}>
       <Link to='/makePoll' key={1}>
         <RaisedButton label='Poll' icon={<NoteAddIcon />} />
       </Link>
-      <DropDownMenu
-        value={link}
-        onChange={onDropDownMenuChange}
-        menuStyle={{padding: '0px'}}
-        style={getStyle(width).navLinkButton}
-      >
-        <MenuItem value={'/'} primaryText='Home' label={user.firstName} style={menuItemStylefix} />
-        <MenuItem value={`/users/profile/${user._id}`} primaryText='My Polls' label='My Polls' style={menuItemStylefix} />
-        <MenuItem value={'/user/profile/edit'} primaryText='Account' label='Account' style={menuItemStylefix} />
-        <MenuItem value={'logOut'} primaryText='Log out' label='Log out' style={menuItemStylefix} />
-      </DropDownMenu>
+      {dropDownMenuItems}
     </div>
-    : <div style={getStyle(width).navLinkButton}>
+  )
+
+  const unAuthenticatedNavLinkButtons = (
+    <div style={getStyle(width).navLinkButton}>
       <Link to='/login'>
         <FlatButton label='Log in' style={getStyle(width).navLink} />
       </Link>
       <Link to='/signup' key={1}>
         <RaisedButton label='Sign up' />
       </Link>
-    </div>}
+    </div>
+  )
+
+  return (
+    <AppBar
+      title={indexLink}
+      showMenuIconButton={width < small}
+      titleStyle={getStyle(width).appBarTitle}
+      style={getStyle(width).appBar}
+      onLeftIconButtonTouchTap={mobileMenuClick}
+    >
+      {isAuth && width <= small ? <Link to='/makePoll'>{floatingNoteAddIcon}</Link> : ''}
+      {isAuth ? authenticatedNavLinkButtons : unAuthenticatedNavLinkButtons}
     </AppBar>
   )
 }

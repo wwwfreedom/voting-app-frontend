@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import Drawer from 'material-ui/Drawer'
-import {MenuItem} from 'material-ui/Menu'
+import { MenuItem } from 'material-ui/Menu'
 import {Link} from 'react-router'
 import NoteAddIcon from 'material-ui/svg-icons/action/note-add'
 import AccountBox from 'material-ui/svg-icons/action/account-box'
@@ -95,5 +95,3 @@ SidebarNav.propTypes = {
   isAuth: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired
 }
-
-export default SidebarNav
