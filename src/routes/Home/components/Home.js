@@ -15,11 +15,18 @@ export const Home = ({polls, width, loading, onMakePollClick}) => {
   const pollListItems = polls.map((poll, index) => {
     const totalVotes = poll.voters.length
     const fullName = `${poll.createdBy.firstName} ${poll.createdBy.lastName}`
-    const creator = <div key={index + 9} className={sty.creatorDiv} >by: <Link key={index + 10} className={sty.creator} to={`/users/profile/${poll.createdBy._id}`}>{fullName}</Link> </div>
+    const creator = (
+      <div key={index + 9} className={sty.creatorDiv}>
+        by:
+        <Link key={index + 10}
+          className={sty.creator}
+          to={`/users/profile/${poll.createdBy._id}`}>
+          {fullName}
+        </Link>
+      </div>
+    )
     const question = () => {
-      if (width < small) {
-        return truncateWithEllipses.apply(poll.question, [30, true])
-      }
+      if (width < small) return truncateWithEllipses.apply(poll.question, [30, true])
       return truncateWithEllipses.apply(poll.question, [50, true])
     }
     return <Link to={`/poll/${poll._id}`} style={{textDecoration: 'none'}}>
@@ -51,7 +58,9 @@ export const Home = ({polls, width, loading, onMakePollClick}) => {
 
   return <div className={sty.container}>
     <Card className={sty.card}>
-      <AppIcon className={sty.appIcon} />
+      <div className={sty.appIconDiv}>
+        <AppIcon className={sty.appIcon} />
+      </div> 
       <CardTitle
         className={sty.question}
         title='Create and share your own polls'
