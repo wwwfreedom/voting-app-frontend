@@ -24,6 +24,7 @@ export const googleOauthError = (error) => ({ type: GOOGLE_OAUTH_ERROR, payload:
 
 export const googleLogin = (code) => (dispatch) => {
   const params = { ...googleOauthParams.params, code }
+  console.log('params', params)
   const url = googleOauthParams.url
   dispatch(googleOauthStart())
   axios.post(url, params)
