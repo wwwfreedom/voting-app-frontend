@@ -1,20 +1,20 @@
-export const apiUrl = 'https://kevin-voting-app-api.herokuapp.com'
+export const apiUrl = process.env.API_URL
 export const googleOauthParams = {
-  url: 'http://localhost:3090/oauth/google',
+  url: `${apiUrl}/oauth/google`,
   authorizationUrl: 'https://accounts.google.com/o/oauth2/auth',
   params: {
-    client_id: '781005171750-aulvo8dfukpk701v9je8h12rohj5gqg7.apps.googleusercontent.com',
-    redirect_uri: 'http://localhost:3000/oauth/google/callback',
+    client_id: process.env.GOOGLE_ID,
+    redirect_uri: process.env.GOOGLE_REDIRECT_URL,
     scope: 'openid profile email',
     response_type: 'code'
   }
 }
 export const githubOauthParams = {
-  url: 'http://localhost:3090/oauth/github',
+  url: `${apiUrl}/oauth/github`,
   authorizationUrl: 'https://github.com/login/oauth/authorize',
   params: {
-    client_id: '1a2a27518c8044d4ac47',
-    redirect_uri: 'http://localhost:3000/oauth/github/callback',
+    client_id: process.env.GITHUB_ID,
+    redirect_uri: process.env.GITHUB_REDIRECT_URL,
     scope: 'user:email profile repo',
     response_type: 'code'
   }
