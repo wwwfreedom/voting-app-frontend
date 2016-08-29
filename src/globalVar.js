@@ -13,8 +13,8 @@ export const githubOauthParams = {
   url: `${apiUrl}/oauth/github`,
   authorizationUrl: 'https://github.com/login/oauth/authorize',
   params: {
-    client_id: '1a2a27518c8044d4ac47'
-    redirect_uri: 'https://pollwise.herokuapp.com/oauth/github/callback'
+    client_id: '1a2a27518c8044d4ac47',
+    redirect_uri: 'https://pollwise.herokuapp.com/oauth/github/callback',
     scope: 'user:email profile repo',
     response_type: 'code'
   }
