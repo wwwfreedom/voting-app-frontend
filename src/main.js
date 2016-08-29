@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import createHashHistory from 'history/lib/createHashHistory'
+import createBrowserHistory from 'history/lib/createBrowserHistory'
 import { useRouterHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import createStore from './store/createStore'
@@ -15,7 +15,7 @@ injectTapEventPlugin()
 // ========================================================
 // Browser History Setup
 // ========================================================
-const hashHistory = useRouterHistory(createHashHistory)({
+const browserHistory = useRouterHistory(createBrowserHistory)({
   basename: __BASENAME__
 })
 
@@ -27,7 +27,7 @@ const hashHistory = useRouterHistory(createHashHistory)({
 // so we need to provide a custom `selectLocationState` to inform
 // react-router-redux of its location.
 const initialState = window.___INITIAL_STATE__
-const store = createStore(initialState, hashHistory)
+const store = createStore(initialState, browserHistory)
 
 // ========================================================
 // Ping server everytime user load webpage (good for analytic and preamp heroku slow server) and Auto login if there's an existing token
@@ -41,7 +41,7 @@ if (!currentUser.firstName && token) {
   store.dispatch(getCurrentUser())
 }
 
-const history = syncHistoryWithStore(hashHistory, store, {
+const history = syncHistoryWithStore(browserHistory, store, {
   selectLocationState: (state) => state.router
 })
 
