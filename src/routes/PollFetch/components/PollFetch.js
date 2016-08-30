@@ -9,6 +9,7 @@ import { abbreviate, capitalizeFirstLetter } from 'utils/general'
 import sty from './PollFetch.scss'
 import PieChart from './PieChart.js'
 import SocialShareButtons from './SocialShareButtons'
+
 export const PollFetch = ({width, loading, poll, currentUser, handleOptionClick, hasVoted, handleVoteClick, showVoteButtons}) => {
   const fullName = capitalizeFirstLetter(`${poll.createdBy.firstName} ${poll.createdBy.lastName}`)
 

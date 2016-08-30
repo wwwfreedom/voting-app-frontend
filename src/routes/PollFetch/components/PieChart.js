@@ -49,13 +49,13 @@ export class PieChartWrapper extends Component {
   onPieClick = (data, index) => this.setState({ activeIndex: index })
 
   render () {
-    return <ResponsiveContainer height={400}>
+    return <ResponsiveContainer height={320}>
       <PieChart onClick={this.onPieClick}>
         <Pie
           activeIndex={this.state.activeIndex}
           activeShape={renderActiveShape}
           data={this.props.data}
-          paddingAngle={0.5}
+          paddingAngle={0.1}
           innerRadius={80}
           style={{cursor: 'pointer'}}
         >
