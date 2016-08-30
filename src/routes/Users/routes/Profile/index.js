@@ -23,7 +23,11 @@ export default (store) => ({
     }, 'Profile')
   },
   onEnter (nextState, replace, callback) {
-    store.dispatch(profileFetch(nextState.params.id))
+    // check back in production so see if this can be remove, for some reason profile Fetch is getting call first before all the other session action. I think it's because of the code splitting prioritising this first.
+    setTimeout(function() {
+      console.log(nextState.params.id)
+      store.dispatch(profileFetch(nextState.params.id))
+    }, 2000)
     callback()
   }
 })
