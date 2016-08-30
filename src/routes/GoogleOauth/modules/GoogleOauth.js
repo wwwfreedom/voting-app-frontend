@@ -22,9 +22,8 @@ export const googleOauthError = (error) => ({ type: GOOGLE_OAUTH_ERROR, payload:
 // Thunk Actions
 // ------------------------------------
 
-export const googleLogin = (code) => (dispatch) => {
+export const googleLogin = (code) => (dispatch, getState) => {
   const params = { ...googleOauthParams.params, code }
-  console.log('params', params)
   const url = googleOauthParams.url
   dispatch(googleOauthStart())
   axios.post(url, params)
@@ -33,6 +32,7 @@ export const googleLogin = (code) => (dispatch) => {
     dispatch(setCurrentUser(response.data.user))
     dispatch(authSet(true))
     dispatch(googleOauthFinish())
+    console.log(getState())
     dispatch(push('/'))
   })
   .catch((error) => errorHandler(error, dispatch, googleOauthError))
