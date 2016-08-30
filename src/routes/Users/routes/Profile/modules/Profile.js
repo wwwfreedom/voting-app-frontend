@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { apiUrl } from 'globalVar.js'
 import errorHandler from 'utils/errorHandler'
+import {authSet, setCurrentUser} from 'redux/session'
 
 // ------------------------------------
 // Constants
@@ -30,28 +31,86 @@ export const profileFetchError = (error) => ({type: PROFILE_FETCH_ERROR, payload
 // ------------------------------------
 
 export const profileFetch = (userId) => (dispatch, getState) => {
-  const {currentUser, authenticated} = getState().session
-  if (authenticated) {
+  const token = localStorage.getItem('token')
+  let {authenticated, currentUser} = getState().session
+  // if there is already user.id and token and authernticated
+  if (currentUser._id && token && authenticated) {
     if (currentUser._id === userId) {
       dispatch(profileIsOwner(true))
     } else {
       dispatch(profileIsOwner(false))
     }
+    dispatch(profileFetchStart())
+    axios.get(`${apiUrl}/user/profile/${userId}`)
+    .then((response) => {
+      if (response.data._id) {
+        return dispatch(profileFetchFinish({...response.data, polls: []}))
+      }
+      return dispatch(profileFetchFinish({
+        _id: response.data[0].createdBy._id,
+        firstName: response.data[0].createdBy.firstName,
+        lastName: response.data[0].createdBy.lastName,
+        polls: response.data
+      }))
+    })
+    .catch((error) => errorHandler(error, dispatch, profileFetchError))
   }
-  dispatch(profileFetchStart())
-  axios.get(`${apiUrl}/user/profile/${userId}`)
-  .then((response) => {
-    if (response.data._id) {
-      return dispatch(profileFetchFinish({...response.data, polls: []}))
-    }
-    return dispatch(profileFetchFinish({
-      _id: response.data[0].createdBy._id,
-      firstName: response.data[0].createdBy.firstName,
-      lastName: response.data[0].createdBy.lastName,
-      polls: response.data
-    }))
-  })
-  .catch((error) => errorHandler(error, dispatch, profileFetchError))
+
+  // if user was previously log in and haven't yet logged out.
+  if (!currentUser._id && token) {
+    axios.get(`${apiUrl}/user/profile`, {
+      headers: { authorization: token }
+    })
+    .then((response) => {
+      dispatch(setCurrentUser(response.data.user))
+      dispatch(authSet(true))
+      authenticated = getState().session.authenticated
+      currentUser = getState().session.currentUser
+      if (authenticated) {
+        if (currentUser._id === userId) {
+          dispatch(profileIsOwner(true))
+        }
+      } else {
+        dispatch(profileIsOwner(false))
+      }
+
+      dispatch(profileFetchStart())
+      axios.get(`${apiUrl}/user/profile/${userId}`)
+      .then((response) => {
+        if (response.data._id) {
+          return dispatch(profileFetchFinish({...response.data, polls: []}))
+        }
+        return dispatch(profileFetchFinish({
+          _id: response.data[0].createdBy._id,
+          firstName: response.data[0].createdBy.firstName,
+          lastName: response.data[0].createdBy.lastName,
+          polls: response.data
+        }))
+      })
+      .catch((error) => errorHandler(error, dispatch, profileFetchError))
+    })
+    .catch((error) => {
+      console.log(error)
+      localStorage.removeItem('token')
+    })
+  }
+
+  // if user is a public user then just fetch the polls
+  if (userId) {
+    axios.get(`${apiUrl}/user/profile/${userId}`)
+    .then((response) => {
+      if (response.data._id) {
+        return dispatch(profileFetchFinish({...response.data, polls: []}))
+      }
+      return dispatch(profileFetchFinish({
+        _id: response.data[0].createdBy._id,
+        firstName: response.data[0].createdBy.firstName,
+        lastName: response.data[0].createdBy.lastName,
+        polls: response.data
+      }))
+    })
+    .catch((error) => errorHandler(error, dispatch, profileFetchError))
+  }
 }
 
 export const pollDelete = (userId, pollId) => (dispatch, getState) => {
