@@ -25,6 +25,7 @@ export const homeFetch = () => (dispatch, getState) => {
   dispatch(homeFetchStart())
   axios.get(`${apiUrl}/poll`)
   .then((response) => {
+    console.log(response.data)
     dispatch(homeFetchFinish(response.data))
   })
   .catch((error) => errorHandler(error, dispatch, homeFetchError))

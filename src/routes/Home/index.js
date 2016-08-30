@@ -22,10 +22,8 @@ export default (store) => ({
     }, 'Home')
   },
   onEnter (nextState, replace, callback) {
-    setTimeout(function() {
-      console.log('fetching home')
-      store.dispatch(homeFetch())
-    }, 150)
+    console.log('fetching home', new Date())
+    store.dispatch(homeFetch())
     callback()
   }
 })
