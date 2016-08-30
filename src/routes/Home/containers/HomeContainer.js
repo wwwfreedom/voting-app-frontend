@@ -28,7 +28,6 @@ export class HomeContainer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps, this.props)
     if (nextProps.serverError.status !== this.props.serverError.status) {
       if (nextProps.authenticated) {
         return
