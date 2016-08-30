@@ -1,5 +1,5 @@
 import { injectReducer } from 'store/reducers'
-import { homeFetch } from './modules/Home'
+/* import { homeFetch } from './modules/Home'*/
 
 export default (store) => ({
   /*  Async getComponent is only invoked when route matches   */
@@ -21,11 +21,11 @@ export default (store) => ({
     /* Webpack named bundle   */
     }, 'Home')
   },
-  onEnter (nextState, replace, callback) {
-    setTimeout(function() {
-      console.log('fetching home')
-      store.dispatch(homeFetch())
-    }, 2200)
-    callback()
-  }
+  /* onEnter (nextState, replace, callback) {
+   *   setTimeout(function() {
+   *     console.log('fetching home')
+   *     store.dispatch(homeFetch())
+   *   }, 2200)
+   *   callback()*/
+  /* }*/
 })

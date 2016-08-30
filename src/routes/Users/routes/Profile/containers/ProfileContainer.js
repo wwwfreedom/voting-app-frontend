@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { pollDelete } from '../modules/Profile'
+import { pollDelete, profileFetch } from '../modules/Profile'
 import SizeMe from 'react-sizeme'
 import { red300, green300 } from 'material-ui/styles/colors'
 import SnackBarMod from 'components/SnackBarMod'
@@ -27,6 +27,10 @@ export class ProfileContainer extends Component {
     message: '',
     showVoteButtons: false
   };
+
+  componentDidMount() {
+    this.props.dispatch(profileFetch(this.props.routeParams.id))
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.serverError.status !== this.props.serverError.status) {

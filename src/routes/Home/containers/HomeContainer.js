@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { homeFetchError, resetError } from '../modules/Home'
+import { homeFetchError, resetError, homeFetch } from '../modules/Home'
 import { red300 } from 'material-ui/styles/colors'
 import SnackBarMod from 'components/SnackBarMod'
 import { push } from 'react-router-redux'
@@ -22,6 +22,10 @@ export class HomeContainer extends Component {
     color: red300,
     message: ''
   };
+
+  componentDidMount() {
+    this.props.dispatch(homeFetch())
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.serverError.status !== this.props.serverError.status) {
