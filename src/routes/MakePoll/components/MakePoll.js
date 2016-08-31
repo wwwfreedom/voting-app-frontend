@@ -63,7 +63,7 @@ export const MakePoll = ({fields, handleSubmit, labels, width, loading, handleAd
         </div>
         : <div className={sty.actionButtons}>
           <RaisedButton
-            label='Create Form'
+            label='Create Poll'
             labelPosition='before'
             key={1}
             primary

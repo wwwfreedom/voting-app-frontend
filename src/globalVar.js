@@ -1,4 +1,5 @@
 export const apiUrl = 'https://kevin-voting-app-api.herokuapp.com'
+/* export const apiUrl = 'http://localhost:3090'*/
 export const googleOauthParams = {
   url: `${apiUrl}/oauth/google`,
   authorizationUrl: 'https://accounts.google.com/o/oauth2/auth',
