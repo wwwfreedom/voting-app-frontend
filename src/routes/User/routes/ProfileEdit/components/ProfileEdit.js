@@ -7,7 +7,6 @@ import Textfield from 'material-ui/TextField'
 import {grey400} from 'material-ui/styles/colors'
 import RefreshIndicator from 'material-ui/RefreshIndicator'
 import RaisedButton from 'material-ui/RaisedButton'
-import { small } from 'utils/windowsize.js'
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton'
 import sty from './ProfileEdit.scss'
 
@@ -80,7 +79,7 @@ export const ProfileEdit = ({ handleSubmit, firstName, lastName, email, gender, 
         {loading ? <div className={sty.loading}>
           <RefreshIndicator
             size={50}
-            left={width <= small ? 135 : 221}
+            left={width <= 493 ? 135 : 221}
             top={0}
             loadingColor={'#FF9800'}
             status='loading'

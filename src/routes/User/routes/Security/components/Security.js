@@ -7,7 +7,6 @@ import Textfield from 'material-ui/TextField'
 import {grey400} from 'material-ui/styles/colors'
 import RefreshIndicator from 'material-ui/RefreshIndicator'
 import RaisedButton from 'material-ui/RaisedButton'
-import { small } from 'utils/windowsize.js'
 import sty from './Security.scss'
 
 export const Security = ({ handleSubmit, password, confirmPassword, width, loading }) => (
@@ -44,7 +43,7 @@ export const Security = ({ handleSubmit, password, confirmPassword, width, loadi
         {loading ? <div className={sty.loading}>
           <RefreshIndicator
             size={50}
-            left={width <= small ? 135 : 221}
+            left={width <= 493 ? 135 : 221}
             top={0}
             loadingColor={'#FF9800'}
             status='loading'
