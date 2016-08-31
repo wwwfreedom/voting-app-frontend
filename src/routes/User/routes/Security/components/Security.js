@@ -44,7 +44,7 @@ export const Security = ({ handleSubmit, password, confirmPassword, width, loadi
         {loading ? <div className={sty.loading}>
           <RefreshIndicator
             size={50}
-            left={width === small ? 135 : 221}
+            left={width <= small ? 135 : 221}
             top={0}
             loadingColor={'#FF9800'}
             status='loading'
