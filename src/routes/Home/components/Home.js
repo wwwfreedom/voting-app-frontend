@@ -14,14 +14,15 @@ import RaisedButton from 'material-ui/RaisedButton'
 export const Home = ({polls, width, loading, onMakePollClick}) => {
   const pollListItems = polls.map((poll, index) => {
     const totalVotes = poll.voters.length
-    const fullName = `${poll.createdBy.firstName} ${poll.createdBy.lastName}`
+    const fullName = ` ${poll.createdBy.firstName || ''} ${poll.createdBy.lastName || ''}`
+    const truncateFullName = truncateWithEllipses.apply(fullName, [30, true])
     const creator = (
       <div key={index + 9} className={sty.creatorDiv}>
         by:
         <Link key={index + 10}
           className={sty.creator}
           to={`/users/profile/${poll.createdBy._id}`}>
-          {fullName}
+          {truncateFullName}
         </Link>
       </div>
     )
