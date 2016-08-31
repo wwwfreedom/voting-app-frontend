@@ -6,9 +6,9 @@ import CardText from 'material-ui/Card/CardText'
 import Textfield from 'material-ui/TextField'
 import {grey400} from 'material-ui/styles/colors'
 import RefreshIndicator from 'material-ui/RefreshIndicator'
-import RaisedButton from 'material-ui/RaisedButton'
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton'
 import sty from './ProfileEdit.scss'
+import SubmitButton from 'components/SubmitButton'
 
 export const ProfileEdit = ({ handleSubmit, firstName, lastName, email, gender, location, website, width, loading }) => {
   return (
@@ -87,13 +87,9 @@ export const ProfileEdit = ({ handleSubmit, firstName, lastName, email, gender, 
               status='loading'
             />
           </div>
-          : <RaisedButton
-            label='Save'
-            primary
-            labelPosition='before'
-          >
-            <input type='submit' className={sty.input} />
-          </RaisedButton>
+           : <div className={sty.actionButtons}>
+             <SubmitButton label='Save' type='primary' />
+           </div>
           }
         </CardActions>
       </Card>

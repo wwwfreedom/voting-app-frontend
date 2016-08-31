@@ -9,6 +9,7 @@ import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import IconButton from 'material-ui/IconButton'
 import { small } from 'utils/windowsize.js'
 import sty from './MakePoll.scss'
+import SubmitButton from 'components/SubmitButton'
 
 export const MakePoll = ({fields, handleSubmit, labels, width, loading, handleAdd, onOptionDelete}) => (
   <form className={sty.container} onSubmit={handleSubmit}>
@@ -62,14 +63,7 @@ export const MakePoll = ({fields, handleSubmit, labels, width, loading, handleAd
           />
         </div>
         : <div className={sty.actionButtons}>
-          <RaisedButton
-            label='Create Poll'
-            labelPosition='before'
-            key={1}
-            primary
-          >
-            <input type='submit' className={sty.input} />
-          </RaisedButton>
+          <SubmitButton label='Create poll' type='primary' />
           <RaisedButton
             label='More Option'
             onTouchTap={handleAdd}
