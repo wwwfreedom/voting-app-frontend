@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import {Card, CardActions, CardTitle, CardText} from 'material-ui/Card'
 import RefreshIndicator from 'material-ui/RefreshIndicator'
 import RaisedButton from 'material-ui/RaisedButton'
-import {red200, green200, yellow200, cyan200, blue200, indigo300, teal300, lime600, lightgreen200, orange200, grey300, brown300} from 'material-ui/styles/colors'
+import {red200, green200, pink300, cyan200, blue200, indigo300, teal300, lime600, lightgreen200, orange200, grey300, brown300} from 'material-ui/styles/colors'
 import { small } from 'utils/windowsize.js'
 import Chip from 'material-ui/Chip'
 import { abbreviate, capitalizeFirstLetter } from 'utils/general'
@@ -13,7 +13,7 @@ import SocialShareButtons from './SocialShareButtons'
 export const PollFetch = ({width, loading, poll, currentUser, handleOptionClick, hasVoted, handleVoteClick, showVoteButtons}) => {
   const fullName = capitalizeFirstLetter(`${poll.createdBy.firstName} ${poll.createdBy.lastName}`)
 
-  const colorArray = [ red200, green200, blue200, cyan200, yellow200, indigo300, teal300, lime600, lightgreen200, orange200, brown300, grey300
+  const colorArray = [ red200, green200, blue200, cyan200, pink300, indigo300, teal300, lime600, lightgreen200, orange200, brown300, grey300
     ]
 
   const options = <div className={sty.optionDiv}>
