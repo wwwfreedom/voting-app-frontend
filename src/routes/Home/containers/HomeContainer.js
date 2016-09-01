@@ -4,7 +4,6 @@ import { homeFetchError, resetError, homeFetch } from '../modules/Home'
 import { red300 } from 'material-ui/styles/colors'
 import SnackBarMod from 'components/SnackBarMod'
 import { push } from 'react-router-redux'
-
 import Home from '../components/Home'
 
 export class HomeContainer extends Component {
@@ -40,6 +39,9 @@ export class HomeContainer extends Component {
 
   handleActionTouchTap = () => {
     this.setState({ open: false })
+    if (this.state.message.includes('create poll')) {
+      this.props.dispatch(push('/login'))
+    }
     this.props.dispatch(resetError())
   }
 
@@ -68,7 +70,7 @@ export class HomeContainer extends Component {
       <SnackBarMod
         open={this.state.open}
         message={this.state.message}
-        action='Dismiss'
+        action={this.state.message.includes('create poll') ? 'Log in' : 'Dismiss'}
         onActionTouchTap={this.handleActionTouchTap}
         onRequestClose={this.handleRequestClose}
         bodyStyle={{backgroundColor: this.state.color}}
